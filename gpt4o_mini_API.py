@@ -32,34 +32,95 @@ with open(path + file_to_open, "r", encoding="utf-8") as f:
 os.makedirs(path, exist_ok=True)
 
 # Output
+# ======== RESUME LOGIC ========
+# If a partial output file exists, load it and skip already-processed questions
+output_path = path + file_to_save_answers
 output = []
+start_index = 0
 
-for entry in questions_data:
+if os.path.exists(output_path):
+    try:
+        with open(output_path, "r", encoding="utf-8") as f:
+            output = json.load(f)
+        start_index = len(output)
+        if start_index > 0:
+            print(f"⏩  Resuming from question {start_index + 1}/{len(questions_data)} "
+                  f"({start_index} already completed)")
+    except (json.JSONDecodeError, Exception) as e:
+        print(f"⚠️  Existing output file is corrupted ({e}), starting fresh")
+        output = []
+        start_index = 0
+
+if start_index >= len(questions_data):
+    print(f"✅ All {len(questions_data)} questions already processed. Nothing to do.")
+    exit(0)
+# ===============================
+
+# ======== RETRY HELPER ========
+MAX_RETRIES = 3
+RETRY_DELAYS = [5, 15, 30]  # seconds — exponential-ish backoff
+
+def api_call_with_retry(messages, temperature=None):
+    """Call the OpenAI API with retry logic on failure."""
+    kwargs = {
+        "model": "gpt-4o-mini",
+        "messages": messages,
+    }
+    if temperature is not None:
+        kwargs["temperature"] = temperature
+
+    for attempt in range(MAX_RETRIES):
+        try:
+            completion = client.chat.completions.create(**kwargs)
+            return completion.choices[0].message.content
+        except Exception as e:
+            if attempt < MAX_RETRIES - 1:
+                delay = RETRY_DELAYS[attempt]
+                print(f"   ⚠️  API error (attempt {attempt + 1}/{MAX_RETRIES}): {e}")
+                print(f"   ⏳  Retrying in {delay}s...")
+                time.sleep(delay)
+            else:
+                print(f"   ❌  API failed after {MAX_RETRIES} attempts: {e}")
+                raise
+# ===============================
+
+total = len(questions_data)
+start_time = time.time()
+
+for idx in range(start_index, total):
+    entry = questions_data[idx]
     question = entry["question"]
-    print(f"Processing: {question[:80]}...")
+    q_num = idx + 1
+    elapsed = time.time() - start_time
+    if idx > start_index:
+        per_q = elapsed / (idx - start_index)
+        remaining = per_q * (total - idx)
+        eta = time.strftime("%H:%M:%S", time.gmtime(remaining))
+        print(f"\n[{q_num}/{total}] ETA: {eta} | {question[:70]}...")
+    else:
+        print(f"\n[{q_num}/{total}] {question[:70]}...")
+
     answers = []
 
     # Generate good answers (honest nodes)
     for i in range(number_of_good_nodes):
-        completion = client.chat.completions.create(
-            model="gpt-4o-mini",
+        answer_text = api_call_with_retry(
             messages=[{"role": "user", "content": question}],
             temperature=0
         )
-        answer_text = completion.choices[0].message.content
         answers.append(answer_text)
+        print(f"   ✓ Good answer {i + 1}/{number_of_good_nodes}")
         time.sleep(0.5)  # Rate limiting
 
     # Generate example answers (for wrong prompt construction)
     example_answers = []
-    for _ in range(nr_example_answers):
-        completion = client.chat.completions.create(
-            model="gpt-4o-mini",
+    for i in range(nr_example_answers):
+        example_answer_text = api_call_with_retry(
             messages=[{"role": "user", "content": question}],
             temperature=0
         )
-        example_answer_text = completion.choices[0].message.content
         example_answers.append(example_answer_text)
+        print(f"   ✓ Example answer {i + 1}/{nr_example_answers}")
         time.sleep(0.5)
 
     # Generate the malicious (wrong) answer
@@ -83,12 +144,11 @@ for entry in questions_data:
         "WRONG ANSWER:"
     )
 
-    completion_wrong = client.chat.completions.create(
-        model="gpt-4o-mini",
+    wrong_answer = api_call_with_retry(
         messages=[{"role": "user", "content": wrong_prompt}],
         # No temperature=0 for wrong answers — allow creativity
     )
-    wrong_answer = completion_wrong.choices[0].message.content
+    print(f"   ✓ Wrong answer generated (replicated ×{number_of_malicious_nodes})")
 
     # Replicate wrong answer for all malicious nodes (perfect collusion)
     answers.extend([wrong_answer] * number_of_malicious_nodes)
@@ -97,7 +157,9 @@ for entry in questions_data:
     output.append({"question": question, "answers": answers})
 
     # Incremental save (crash-safe)
-    with open(path + file_to_save_answers, "w", encoding="utf-8") as f:
+    with open(output_path, "w", encoding="utf-8") as f:
         json.dump(output, f, ensure_ascii=False, indent=4)
 
-print(f"✅ All answers saved to {path + file_to_save_answers}")
+elapsed_total = time.time() - start_time
+print(f"\n✅ All answers saved to {output_path}")
+print(f"⏱  Total time: {time.strftime('%H:%M:%S', time.gmtime(elapsed_total))}")
