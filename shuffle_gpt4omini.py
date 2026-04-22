@@ -8,10 +8,10 @@ import os
 # config ::: "60-40" or "70-30"
 # num_shuffles ::: 30 for MIX, 20 for PRO
 # =======================================================
-number = "100"
-dataset = "MIX"
-config = "60-40"
-num_shuffles = 30
+number = "60"
+dataset = "PRO"
+config = "70-30"
+num_shuffles = 20
 # =======================================================
 
 path = f"./simulations {config}/run_{dataset}_gpt4omini/"

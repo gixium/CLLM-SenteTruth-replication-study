@@ -14,11 +14,11 @@ client = OpenAI(
 
 # number_of_good_nodes ::: 6 for 60-40, 7 for 70-30
 # =======================================================
-number = "100"
-dataset = "MIX"
-config = "60-40"
+number = "60"
+dataset = "PRO"
+config = "70-30"
 
-number_of_good_nodes = 6
+number_of_good_nodes = 7
 number_of_malicious_nodes = 10 - number_of_good_nodes
 nr_example_answers = 2
 # =======================================================
