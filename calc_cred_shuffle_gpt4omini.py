@@ -77,10 +77,15 @@ def run_single_iteration(path, qa_file, result_file, shuffle, tokenizer, model):
 
 def main():
     # ======== CONFIGURATION — CHANGE THESE PER RUN ========
-    number = "100"          # "100" for MIX, "60" for PRO
-    dataset = "MIX"         # "MIX" or "PRO"
-    config = "60-40"        # "60-40" or "70-30"
-    num_shuffles = 30       # 30 for MIX, 20 for PRO
+    # number :::: "100" for MIX, "60" for PRO
+    # dataset ::: "MIX" or "PRO"
+    # config ::: "60-40" or "70-30"
+    # num_shuffles ::: 30 for MIX, 20 for PRO
+    # =======================================================
+    number = "100"
+    dataset = "MIX"
+    config = "60-40"
+    num_shuffles = 30
     # =======================================================
 
     path = f"./simulations {config}/run_{dataset}_gpt4omini/shuffle/"

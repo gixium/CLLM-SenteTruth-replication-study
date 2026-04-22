@@ -8,11 +8,17 @@ client = OpenAI(
 )
 
 # ======== CONFIGURATION — CHANGE THESE PER RUN ========
-number = "100"                    # "100" for MIX, "60" for PRO
-dataset = "MIX"                   # "MIX" or "PRO"
-config = "60-40"                  # "60-40" or "70-30"
+# number ::: "100" for MIX, "60"
+# dataset ::: "MIX" or "PRO"
+# config ::: "60-40" or "70-30"
 
-number_of_good_nodes = 6          # 6 for 60-40, 7 for 70-30
+# number_of_good_nodes ::: 6 for 60-40, 7 for 70-30
+# =======================================================
+number = "100"
+dataset = "MIX"
+config = "60-40"
+
+number_of_good_nodes = 6
 number_of_malicious_nodes = 10 - number_of_good_nodes
 nr_example_answers = 2
 # =======================================================
