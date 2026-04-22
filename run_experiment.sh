@@ -383,7 +383,7 @@ PYEOF
 
     local shuffle_dir="simulations $CONFIG/run_${DATASET}_gpt4omini/shuffle"
     local count
-    count=$(ls "$shuffle_dir"/q_*_answers_shuffle_*.json 2>/dev/null | wc -l | tr -d ' ')
+    count=$(find "$shuffle_dir" -maxdepth 1 -name 'q_*_answers_shuffle_*.json' 2>/dev/null | wc -l | tr -d ' ')
     print_ok "$count shuffled files in $shuffle_dir"
 }
 
@@ -443,7 +443,7 @@ PYEOF
     # --- Shuffled runs ---
     local shuffle_dir="simulations $CONFIG/run_${DATASET}_gpt4omini/shuffle"
     local shuffle_count
-    shuffle_count=$(ls "$shuffle_dir"/q_*_answers_shuffle_*.json 2>/dev/null | wc -l | tr -d ' ')
+    shuffle_count=$(find "$shuffle_dir" -maxdepth 1 -name 'q_*_answers_shuffle_*.json' 2>/dev/null | wc -l | tr -d ' ')
     if [ "$shuffle_count" -eq 0 ]; then
         print_err "No shuffled files found in $shuffle_dir. Run Phase 2 first."
         return 1
@@ -451,10 +451,10 @@ PYEOF
 
     # Remove stale shuffle weight logs (same append-mode issue)
     local stale
-    stale=$(ls "$shuffle_dir"/node_weights_log_*.txt 2>/dev/null | wc -l | tr -d ' ')
+    stale=$(find "$shuffle_dir" -maxdepth 1 -name 'node_weights_log_*.txt' 2>/dev/null | wc -l | tr -d ' ')
     if [ "$stale" -gt 0 ]; then
         print_warn "Removing $stale stale shuffle weight logs..."
-        rm "$shuffle_dir"/node_weights_log_*.txt
+        find "$shuffle_dir" -maxdepth 1 -name 'node_weights_log_*.txt' -delete
     fi
 
     print_step "Patching and running shuffle credibility for $DATASET $CONFIG..."
@@ -481,7 +481,7 @@ PYEOF
     python3 calc_cred_shuffle_gpt4omini.py
 
     local log_count
-    log_count=$(ls "$shuffle_dir"/node_weights_log_*.txt 2>/dev/null | wc -l | tr -d ' ')
+    log_count=$(find "$shuffle_dir" -maxdepth 1 -name 'node_weights_log_*.txt' 2>/dev/null | wc -l | tr -d ' ')
     print_ok "Shuffle credibility complete: $log_count weight logs in $shuffle_dir"
 }
 
