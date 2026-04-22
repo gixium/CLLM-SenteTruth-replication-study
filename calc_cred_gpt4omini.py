@@ -66,9 +66,13 @@ def update_node_weights(answers, node_weight, tokenizer, model):
 
 def main():
     # ======== CONFIGURATION — CHANGE THESE PER RUN ========
-    number = "100"          # "100" for MIX, "60" for PRO
-    dataset = "MIX"         # "MIX" or "PRO"
-    config = "60-40"        # "60-40" or "70-30"
+    # number ::: "100" for MIX, "60"
+    # dataset ::: "MIX" or "PRO"
+    # config ::: "60-40" or "70-30"
+    # =======================================================
+    number = "100"
+    dataset = "MIX"
+    config = "60-40"
     # =======================================================
 
     path = f"./simulations {config}/run_{dataset}_gpt4omini/"
