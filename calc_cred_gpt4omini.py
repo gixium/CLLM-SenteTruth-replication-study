@@ -66,7 +66,7 @@ def update_node_weights(answers, node_weight, tokenizer, model):
 
 def main():
     # ======== CONFIGURATION — CHANGE THESE PER RUN ========
-    # number ::: "100" for MIX, "60"
+    # number ::: "100" for MIX, "60" for PRO
     # dataset ::: "MIX" or "PRO"
     # config ::: "60-40" or "70-30"
     # =======================================================
