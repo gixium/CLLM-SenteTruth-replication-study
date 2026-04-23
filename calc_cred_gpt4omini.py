@@ -44,7 +44,7 @@ def encode_sentences(sentences, tokenizer, model):
         inputs = {k: v.to(DEVICE) for k, v in inputs.items()}
         with torch.no_grad():
             outputs = model(**inputs)
-        # Always move back to CPU before .numpy() — required by numpy
+        # Always move back to CPU before .numpy() — required by numpy, needed for apple silicon
         sentence_embedding = outputs.last_hidden_state.mean(dim=1).squeeze().cpu().numpy()
         embeddings.append(sentence_embedding)
     return np.array(embeddings)

@@ -1,7 +1,7 @@
 *.pdf
 *.md
 .DS_Store
-
+/tmp
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
