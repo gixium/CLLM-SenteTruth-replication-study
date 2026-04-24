@@ -112,7 +112,9 @@ for idx in range(start_index, total):
     for i in range(number_of_good_nodes):
         answer_text = api_call_with_retry(
             messages=[{"role": "user", "content": question}],
-            temperature=0
+            
+            # comment next line for default model temperature (output variety)
+            # temperature=0
         )
         answers.append(answer_text)
         print(f"   ✓ Good answer {i + 1}/{number_of_good_nodes}")
@@ -123,7 +125,9 @@ for idx in range(start_index, total):
     for i in range(nr_example_answers):
         example_answer_text = api_call_with_retry(
             messages=[{"role": "user", "content": question}],
-            temperature=0
+            
+            # comment next line for default model temperature (output variety)
+            # temperature=0
         )
         example_answers.append(example_answer_text)
         print(f"   ✓ Example answer {i + 1}/{nr_example_answers}")
