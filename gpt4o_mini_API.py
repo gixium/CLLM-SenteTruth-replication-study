@@ -114,7 +114,7 @@ for idx in range(start_index, total):
             messages=[{"role": "user", "content": question}],
             
             # comment next line for default model temperature (output variety)
-            # temperature=0
+            temperature=2
         )
         answers.append(answer_text)
         print(f"   ✓ Good answer {i + 1}/{number_of_good_nodes}")
@@ -127,7 +127,7 @@ for idx in range(start_index, total):
             messages=[{"role": "user", "content": question}],
             
             # comment next line for default model temperature (output variety)
-            # temperature=0
+            temperature=2
         )
         example_answers.append(example_answer_text)
         print(f"   ✓ Example answer {i + 1}/{nr_example_answers}")
