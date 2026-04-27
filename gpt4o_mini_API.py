@@ -74,6 +74,8 @@ def api_call_with_retry(messages, temperature=None):
     }
     if temperature is not None:
         kwargs["temperature"] = temperature
+    if seed is not None:
+        kwargs["seed"] = seed
 
     for attempt in range(MAX_RETRIES):
         try:
@@ -114,7 +116,10 @@ for idx in range(start_index, total):
             messages=[{"role": "user", "content": question}],
             
             # comment next line for default model temperature (output variety)
-            temperature=2
+            # temperature=1
+
+            # experimental try
+            seed = 4321
         )
         answers.append(answer_text)
         print(f"   ✓ Good answer {i + 1}/{number_of_good_nodes}")
@@ -127,7 +132,10 @@ for idx in range(start_index, total):
             messages=[{"role": "user", "content": question}],
             
             # comment next line for default model temperature (output variety)
-            temperature=2
+            # temperature=1
+
+            # experimental try
+            seed = 4321
         )
         example_answers.append(example_answer_text)
         print(f"   ✓ Example answer {i + 1}/{nr_example_answers}")
