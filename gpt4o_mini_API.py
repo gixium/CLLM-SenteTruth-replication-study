@@ -66,7 +66,7 @@ if start_index >= len(questions_data):
 MAX_RETRIES = 3
 RETRY_DELAYS = [5, 15, 30]  # seconds — exponential-ish backoff
 
-def api_call_with_retry(messages, temperature=None):
+def api_call_with_retry(messages, temperature=None, seed=None):
     """Call the OpenAI API with retry logic on failure."""
     kwargs = {
         "model": "gpt-4o-mini",
