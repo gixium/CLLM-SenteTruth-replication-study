@@ -1,11 +1,22 @@
-from openai import OpenAI
 import json
 import time
 import os
 
+# ======== CONFIGURATION — LLM SETUP ====================
+from openai import OpenAI
 client = OpenAI(
     api_key="sk-APIKEY",
 )
+ACTIVE_PROVIDER = "openai"
+
+# from google import genai
+# from google.genai import types
+# client = genai.Client(
+#     api_key="sk-APIKEY",
+# )
+# ACTIVE_PROVIDER = "gemini"
+# ======================================================
+
 
 # ======== CONFIGURATION — CHANGE THESE PER RUN ========
 # number ::: "100" for MIX, "60"
@@ -21,6 +32,10 @@ config = "70-30"
 number_of_good_nodes = 7
 number_of_malicious_nodes = 10 - number_of_good_nodes
 nr_example_answers = 2
+
+# Model configuration for honest/example generation
+model_temperature = None # e.g. 0 for deterministic output, None for default
+model_seed = 4321 # e.g. 4321, None for no seed
 # =======================================================
 
 # Build paths
@@ -67,20 +82,55 @@ MAX_RETRIES = 3
 RETRY_DELAYS = [5, 15, 30]  # seconds — exponential-ish backoff
 
 def api_call_with_retry(messages, temperature=None, seed=None):
-    """Call the OpenAI API with retry logic on failure."""
-    kwargs = {
-        "model": "gpt-4o-mini",
-        "messages": messages,
-    }
-    if temperature is not None:
-        kwargs["temperature"] = temperature
-    if seed is not None:
-        kwargs["seed"] = seed
-
+    """Call the chosen API with retry logic on failure."""
     for attempt in range(MAX_RETRIES):
         try:
-            completion = client.chat.completions.create(**kwargs)
-            return completion.choices[0].message.content
+            if ACTIVE_PROVIDER == "openai":
+                kwargs = {
+                    "model": "gpt-4o-mini",
+                    "messages": messages,
+                }
+                if temperature is not None:
+                    kwargs["temperature"] = temperature
+                if seed is not None:
+                    kwargs["seed"] = seed
+
+                completion = client.chat.completions.create(**kwargs)
+                return completion.choices[0].message.content
+                
+            elif ACTIVE_PROVIDER == "gemini":
+                # For our use case, we just extract the single message string
+                prompt_text = messages[0]["content"]
+                
+                config_kwargs = {}
+                if temperature is not None:
+                    config_kwargs["temperature"] = temperature
+                if seed is not None:
+                    config_kwargs["seed"] = seed
+                
+                if config_kwargs:
+                    try:
+                        gen_config = types.GenerateContentConfig(**config_kwargs)
+                    except TypeError:
+                        # Fallback if seed is not supported by this genai version
+                        if "seed" in config_kwargs:
+                            del config_kwargs["seed"]
+                            gen_config = types.GenerateContentConfig(**config_kwargs)
+                        else:
+                            raise
+                    
+                    response = client.models.generate_content(
+                        model="gemini-2.0-flash",
+                        contents=prompt_text,
+                        config=gen_config
+                    )
+                else:
+                    response = client.models.generate_content(
+                        model="gemini-2.0-flash",
+                        contents=prompt_text
+                    )
+                return response.text
+
         except Exception as e:
             if attempt < MAX_RETRIES - 1:
                 delay = RETRY_DELAYS[attempt]
@@ -114,12 +164,8 @@ for idx in range(start_index, total):
     for i in range(number_of_good_nodes):
         answer_text = api_call_with_retry(
             messages=[{"role": "user", "content": question}],
-            
-            # comment next line for default model temperature (output variety)
-            # temperature=1
-
-            # experimental try
-            seed = 4321
+            temperature=model_temperature,
+            seed=model_seed
         )
         answers.append(answer_text)
         print(f"   ✓ Good answer {i + 1}/{number_of_good_nodes}")
@@ -130,12 +176,8 @@ for idx in range(start_index, total):
     for i in range(nr_example_answers):
         example_answer_text = api_call_with_retry(
             messages=[{"role": "user", "content": question}],
-            
-            # comment next line for default model temperature (output variety)
-            # temperature=1
-
-            # experimental try
-            seed = 4321
+            temperature=model_temperature,
+            seed=model_seed
         )
         example_answers.append(example_answer_text)
         print(f"   ✓ Example answer {i + 1}/{nr_example_answers}")
