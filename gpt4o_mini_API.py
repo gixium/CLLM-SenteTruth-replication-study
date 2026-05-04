@@ -102,33 +102,40 @@ def api_call_with_retry(messages, temperature=None, seed=None):
                 # For our use case, we just extract the single message string
                 prompt_text = messages[0]["content"]
                 
-                config_kwargs = {}
+                config_kwargs = {"max_output_tokens": 8192}
                 if temperature is not None:
                     config_kwargs["temperature"] = temperature
                 if seed is not None:
                     config_kwargs["seed"] = seed
-                
-                if config_kwargs:
+
+                # Attempt to disable reasoning (CoT)
+                try:
+                    if hasattr(types, "ThinkingConfig"):
+                        try:
+                            config_kwargs["thinking_config"] = types.ThinkingConfig(thinking_budget_tokens=0)
+                        except TypeError:
+                            config_kwargs["thinking_config"] = types.ThinkingConfig(budget_tokens=0)
+                except Exception:
+                    pass
+
+                # Build config with fallbacks for unsupported parameters
+                while True:
                     try:
                         gen_config = types.GenerateContentConfig(**config_kwargs)
+                        break
                     except TypeError:
-                        # Fallback if seed is not supported by this genai version
-                        if "seed" in config_kwargs:
+                        if "thinking_config" in config_kwargs:
+                            del config_kwargs["thinking_config"]
+                        elif "seed" in config_kwargs:
                             del config_kwargs["seed"]
-                            gen_config = types.GenerateContentConfig(**config_kwargs)
                         else:
                             raise
-                    
-                    response = client.models.generate_content(
-                        model="gemini-2.0-flash",
-                        contents=prompt_text,
-                        config=gen_config
-                    )
-                else:
-                    response = client.models.generate_content(
-                        model="gemini-2.0-flash",
-                        contents=prompt_text
-                    )
+                
+                response = client.models.generate_content(
+                    model="gemini-2.5-flash-lite",
+                    contents=prompt_text,
+                    config=gen_config
+                )
                 return response.text
 
         except Exception as e:
