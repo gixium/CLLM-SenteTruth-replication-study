@@ -49,12 +49,16 @@ print_err() {
 confirm() {
     echo ""
     echo -e "${YELLOW}$1${NC}"
-    read -p "  Continue? [y/N] " -n 1 -r
-    echo
-    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-        echo "Skipped."
-        return 1
-    fi
+    
+    echo -e "${GREEN}  [Going for the API calls!]${NC}"
+
+    # read -p "  Continue? [y/N] " -n 1 -r
+    # echo
+    # if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+    #     echo "Skipped."
+    #     return 1
+    # fi
+
     return 0
 }
 

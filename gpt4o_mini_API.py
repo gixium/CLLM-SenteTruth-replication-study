@@ -78,8 +78,9 @@ if start_index >= len(questions_data):
 # ===============================
 
 # ======== RETRY HELPER ========
-MAX_RETRIES = 3
-RETRY_DELAYS = [5, 15, 30]  # seconds — exponential-ish backoff
+
+RETRY_DELAYS = [5, 10, 30, 60, 120, 180, 210]  # seconds — exponential-ish backoff
+MAX_RETRIES = len(RETRY_DELAYS)
 
 def api_call_with_retry(messages, temperature=None, seed=None):
     """Call the chosen API with retry logic on failure."""
