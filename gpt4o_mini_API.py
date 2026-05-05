@@ -1,6 +1,7 @@
 import json
 import time
 import os
+import concurrent.futures
 
 # ======== CONFIGURATION — LLM SETUP ====================
 from openai import OpenAI
@@ -167,29 +168,20 @@ for idx in range(start_index, total):
         print(f"\n[{q_num}/{total}] {question[:70]}...")
 
     answers = []
-
-    # Generate good answers (honest nodes)
-    for i in range(number_of_good_nodes):
-        answer_text = api_call_with_retry(
-            messages=[{"role": "user", "content": question}],
-            temperature=model_temperature,
-            seed=model_seed
-        )
-        answers.append(answer_text)
-        print(f"   ✓ Good answer {i + 1}/{number_of_good_nodes}")
-        time.sleep(0.5)  # Rate limiting
-
-    # Generate example answers (for wrong prompt construction)
     example_answers = []
-    for i in range(nr_example_answers):
-        example_answer_text = api_call_with_retry(
-            messages=[{"role": "user", "content": question}],
-            temperature=model_temperature,
-            seed=model_seed
-        )
-        example_answers.append(example_answer_text)
-        print(f"   ✓ Example answer {i + 1}/{nr_example_answers}")
-        time.sleep(0.5)
+
+    # Generate good & example answers concurrently
+    with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
+        good_futures = [executor.submit(api_call_with_retry, [{"role": "user", "content": question}], model_temperature, model_seed) for _ in range(number_of_good_nodes)]
+        example_futures = [executor.submit(api_call_with_retry, [{"role": "user", "content": question}], model_temperature, model_seed) for _ in range(nr_example_answers)]
+        
+        for i, f in enumerate(good_futures):
+            answers.append(f.result())
+            print(f"   ✓ Good answer {i + 1}/{number_of_good_nodes}")
+            
+        for i, f in enumerate(example_futures):
+            example_answers.append(f.result())
+            print(f"   ✓ Example answer {i + 1}/{nr_example_answers}")
 
     # Generate the malicious (wrong) answer
     wrong_prompt = (
