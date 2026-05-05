@@ -120,17 +120,6 @@ def api_call_with_retry(messages, temperature=None, seed=None):
                 except Exception:
                     pass
 
-                # Disable safety filters
-                try:
-                    config_kwargs["safety_settings"] = [
-                        types.SafetySetting(category="HARM_CATEGORY_HATE_SPEECH", threshold="BLOCK_NONE"),
-                        types.SafetySetting(category="HARM_CATEGORY_DANGEROUS_CONTENT", threshold="BLOCK_NONE"),
-                        types.SafetySetting(category="HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold="BLOCK_NONE"),
-                        types.SafetySetting(category="HARM_CATEGORY_HARASSMENT", threshold="BLOCK_NONE"),
-                    ]
-                except Exception:
-                    pass
-
                 # Build config with fallbacks for unsupported parameters
                 while True:
                     try:
@@ -139,19 +128,16 @@ def api_call_with_retry(messages, temperature=None, seed=None):
                     except TypeError:
                         if "thinking_config" in config_kwargs:
                             del config_kwargs["thinking_config"]
-                        elif "safety_settings" in config_kwargs:
-                            del config_kwargs["safety_settings"]
                         elif "seed" in config_kwargs:
                             del config_kwargs["seed"]
                         else:
                             raise
+                
                 response = client.models.generate_content(
                     model="gemini-2.5-flash-lite",
                     contents=prompt_text,
                     config=gen_config
                 )
-                if response.text is None:
-                    raise ValueError("The model returned None text (likely a safety block).")
                 return response.text
 
         except Exception as e:
@@ -165,37 +151,39 @@ def api_call_with_retry(messages, temperature=None, seed=None):
                 raise
 # ===============================
 
-if __name__ == "__main__":
-    total = len(questions_data)
-    start_time = time.time()
+total = len(questions_data)
+start_time = time.time()
 
-    for idx in range(start_index, total):
-        entry = questions_data[idx]
-        question = entry["question"]
-        q_num = idx + 1
-        elapsed = time.time() - start_time
-        if idx > start_index:
-            per_q = elapsed / (idx - start_index)
-            remaining = per_q * (total - idx)
-            eta = time.strftime("%H:%M:%S", time.gmtime(remaining))
-            print(f"\n[{q_num}/{total}] ETA: {eta} | {question[:70]}...")
-        else:
-            print(f"\n[{q_num}/{total}] {question[:70]}...")
+for idx in range(start_index, total):
+    entry = questions_data[idx]
+    question = entry["question"]
+    q_num = idx + 1
+    elapsed = time.time() - start_time
+    if idx > start_index:
+        per_q = elapsed / (idx - start_index)
+        remaining = per_q * (total - idx)
+        eta = time.strftime("%H:%M:%S", time.gmtime(remaining))
+        print(f"\n[{q_num}/{total}] ETA: {eta} | {question[:70]}...")
+    else:
+        print(f"\n[{q_num}/{total}] {question[:70]}...")
 
-def generate_answers_for_question(question):
     answers = []
     example_answers = []
 
+    # Generate good & example answers concurrently
     with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
         good_futures = [executor.submit(api_call_with_retry, [{"role": "user", "content": question}], model_temperature, model_seed) for _ in range(number_of_good_nodes)]
         example_futures = [executor.submit(api_call_with_retry, [{"role": "user", "content": question}], model_temperature, model_seed) for _ in range(nr_example_answers)]
         
         for i, f in enumerate(good_futures):
             answers.append(f.result())
+            print(f"   ✓ Good answer {i + 1}/{number_of_good_nodes}")
             
         for i, f in enumerate(example_futures):
             example_answers.append(f.result())
+            print(f"   ✓ Example answer {i + 1}/{nr_example_answers}")
 
+    # Generate the malicious (wrong) answer
     wrong_prompt = (
         "You MUST generate a FACTUALLY INCORRECT answer to the following question. "
         "Critical requirements:\n"
@@ -218,38 +206,20 @@ def generate_answers_for_question(question):
 
     wrong_answer = api_call_with_retry(
         messages=[{"role": "user", "content": wrong_prompt}],
+        # No temperature=0 for wrong answers — allow creativity
     )
+    print(f"   ✓ Wrong answer generated (replicated ×{number_of_malicious_nodes})")
 
+    # Replicate wrong answer for all malicious nodes (perfect collusion)
     answers.extend([wrong_answer] * number_of_malicious_nodes)
-    return answers
 
-if __name__ == "__main__":
-    total = len(questions_data)
-    start_time = time.time()
+    # Save result
+    output.append({"question": question, "answers": answers})
 
-    for idx in range(start_index, total):
-        entry = questions_data[idx]
-        question = entry["question"]
-        q_num = idx + 1
-        elapsed = time.time() - start_time
-        if idx > start_index:
-            per_q = elapsed / (idx - start_index)
-            remaining = per_q * (total - idx)
-            eta = time.strftime("%H:%M:%S", time.gmtime(remaining))
-            print(f"\n[{q_num}/{total}] ETA: {eta} | {question[:70]}...")
-        else:
-            print(f"\n[{q_num}/{total}] {question[:70]}...")
+    # Incremental save (crash-safe)
+    with open(output_path, "w", encoding="utf-8") as f:
+        json.dump(output, f, ensure_ascii=False, indent=4)
 
-        answers = generate_answers_for_question(question)
-        print(f"   ✓ Generated {number_of_good_nodes} good answers, {nr_example_answers} example answers, and {number_of_malicious_nodes} replicated wrong answers.")
-
-        # Save result
-        output.append({"question": question, "answers": answers})
-
-        # Incremental save (crash-safe)
-        with open(output_path, "w", encoding="utf-8") as f:
-            json.dump(output, f, ensure_ascii=False, indent=4)
-
-    elapsed_total = time.time() - start_time
-    print(f"\n✅ All answers saved to {output_path}")
-    print(f"⏱  Total time: {time.strftime('%H:%M:%S', time.gmtime(elapsed_total))}")
+elapsed_total = time.time() - start_time
+print(f"\n✅ All answers saved to {output_path}")
+print(f"⏱  Total time: {time.strftime('%H:%M:%S', time.gmtime(elapsed_total))}")
