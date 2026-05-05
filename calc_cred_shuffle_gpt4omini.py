@@ -49,6 +49,8 @@ def update_node_weights(answers, node_weight, tokenizer, model):
     """
     Calculate similarity and update node weights
     """
+    # Sanitize answers to prevent NoneType errors from API safety blocks
+    answers = [ans if ans is not None else "The model declined to answer." for ans in answers]
     embeddings = encode_sentences(answers, tokenizer, model)
     similarity_matrix = cosine_similarity(embeddings)
 
@@ -71,6 +73,24 @@ def run_single_iteration(path, qa_file, result_file, shuffle, tokenizer, model):
     for i, item in enumerate(data):
         answers = item["answers"]
         print(f"Processing question {i+1} for {shuffle}...")
+        
+        if any(ans is None for ans in answers):
+            print(f"   ⚠️ Null answers found in shuffled JSON! Pulling repaired answers from main file...")
+            main_qa_file = f"q_{number}_answers.json"
+            main_path = path.replace("shuffle/", "")
+            
+            with open(main_path + main_qa_file, "r", encoding="utf-8") as main_f:
+                main_data = json.load(main_f)
+            
+            repaired_answers = main_data[i]["answers"].copy()
+            import random
+            random.shuffle(repaired_answers)
+            answers = repaired_answers
+            item["answers"] = answers
+            
+            with open(path + qa_file, "w", encoding="utf-8") as f:
+                json.dump(data, f, ensure_ascii=False, indent=4)
+                
         node_weight = update_node_weights(answers, node_weight, tokenizer, model)
         with open(path + result_file, "a", encoding="utf-8") as f:
             f.write(" ".join(f"{w:.6f}" for w in node_weight) + "\n")
