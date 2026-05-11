@@ -165,6 +165,33 @@ check_prerequisites() {
         fi
     done
 
+    # Output directories
+    print_step "Output directories..."
+    local dirs="simulations 60-40/run_MIX_gpt4omini/shuffle
+simulations 60-40/run_PRO_gpt4omini/shuffle
+simulations 70-30/run_MIX_gpt4omini/shuffle
+simulations 70-30/run_PRO_gpt4omini/shuffle"
+    while IFS= read -r d; do
+        if [ -d "$d" ]; then
+            print_ok "$d"
+        else
+            mkdir -p "$d"
+            print_ok "$d (created)"
+            
+            # Copy base question files to the newly created run directory
+            local parent_dir=$(dirname "$d")
+            if [[ "$parent_dir" == *"MIX"* ]]; then
+                cp "dataset-questions_translated/q_100_MIX.json" "$parent_dir/q_100.json"
+                print_ok "Copied q_100.json to $parent_dir"
+            elif [[ "$parent_dir" == *"PRO"* ]]; then
+                cp "dataset-questions_translated/q_60_PRO.json" "$parent_dir/q_60.json"
+                print_ok "Copied q_60.json to $parent_dir"
+            fi
+        fi
+    done <<EOF
+$dirs
+EOF
+
     # Question files
     print_step "Question files..."
     local qfiles="simulations 60-40/run_MIX_gpt4omini/q_100.json
@@ -192,23 +219,6 @@ EOF
     else
         print_ok "API key is set (non-placeholder)"
     fi
-
-    # Output directories
-    print_step "Output directories..."
-    local dirs="simulations 60-40/run_MIX_gpt4omini/shuffle
-simulations 60-40/run_PRO_gpt4omini/shuffle
-simulations 70-30/run_MIX_gpt4omini/shuffle
-simulations 70-30/run_PRO_gpt4omini/shuffle"
-    while IFS= read -r d; do
-        if [ -d "$d" ]; then
-            print_ok "$d"
-        else
-            mkdir -p "$d"
-            print_ok "$d (created)"
-        fi
-    done <<EOF
-$dirs
-EOF
 
     echo ""
     if $all_ok; then
