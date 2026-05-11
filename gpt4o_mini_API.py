@@ -16,6 +16,14 @@ ACTIVE_PROVIDER = "openai"
 #     api_key="sk-APIKEY",
 # )
 # ACTIVE_PROVIDER = "gemini"
+
+# from openai import OpenAI
+# client = OpenAI(
+#     api_key="sk-APIKEY",
+#     base_url="https://api.deepseek.com",
+# )
+# ACTIVE_PROVIDER = "deepseek"
+# ACTIVE_MODEL = "deepseek-chat" # uno tra "deepseek-chat" oppure "deepseek-reasoner"
 # ======================================================
 
 
@@ -139,6 +147,19 @@ def api_call_with_retry(messages, temperature=None, seed=None):
                     config=gen_config
                 )
                 return response.text
+
+            elif ACTIVE_PROVIDER == "deepseek":
+                kwargs = {
+                    "model": ACTIVE_MODEL,
+                    "messages": messages,
+                }
+                if temperature is not None:
+                    kwargs["temperature"] = temperature
+                if seed is not None:
+                    kwargs["seed"] = seed
+
+                completion = client.chat.completions.create(**kwargs)
+                return completion.choices[0].message.content
 
         except Exception as e:
             if attempt < MAX_RETRIES - 1:
