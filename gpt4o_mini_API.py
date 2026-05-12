@@ -43,8 +43,7 @@ number_of_malicious_nodes = 10 - number_of_good_nodes
 nr_example_answers = 2
 
 # Model configuration for honest/example generation
-model_temperature = None # e.g. 0 for deterministic output, None for default
-model_seed = 4321 # e.g. 4321, None for no seed
+model_seed = None # e.g. 4321, None for no seed
 # =======================================================
 
 # Build paths
