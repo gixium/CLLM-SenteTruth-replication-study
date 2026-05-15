@@ -1,0 +1,142 @@
+
+File: temp-default_Research-project_deepseek-reasoner.xlsx
+
+───────────────────────────────────────────────────────
+  Configurazione : 60/40 MIX
+  Shuffle totali : 30
+  Avg steps      : 3.7
+  Min steps      : 2
+  Max steps      : 10
+  Dettaglio per shuffle:
+    shuffle  1: 7
+    shuffle  2: 2
+    shuffle  3: 7
+    shuffle  4: 6
+    shuffle  5: 2
+    shuffle  6: 2
+    shuffle  7: 2
+    shuffle  8: 2
+    shuffle  9: 6
+    shuffle 10: 2
+    shuffle 11: 2
+    shuffle 12: 10
+    shuffle 13: 5
+    shuffle 14: 2
+    shuffle 15: 2
+    shuffle 16: 2
+    shuffle 17: 7
+    shuffle 18: 7
+    shuffle 19: 2
+    shuffle 20: 3
+    shuffle 21: 2
+    shuffle 22: 2
+    shuffle 23: 3
+    shuffle 24: 5
+    shuffle 25: 2
+    shuffle 26: 2
+    shuffle 27: 2
+    shuffle 28: 2
+    shuffle 29: 8
+    shuffle 30: 2
+───────────────────────────────────────────────────────
+  Configurazione : 60/40 PRO
+  Shuffle totali : 20
+  Avg steps      : 2.8
+  Min steps      : 2
+  Max steps      : 7
+  Dettaglio per shuffle:
+    shuffle  1: 2
+    shuffle  2: 2
+    shuffle  3: 4
+    shuffle  4: 2
+    shuffle  5: 2
+    shuffle  6: 7
+    shuffle  7: 2
+    shuffle  8: 2
+    shuffle  9: 6
+    shuffle 10: 4
+    shuffle 11: 2
+    shuffle 12: 3
+    shuffle 13: 2
+    shuffle 14: 2
+    shuffle 15: 2
+    shuffle 16: 4
+    shuffle 17: 2
+    shuffle 18: 2
+    shuffle 19: 3
+    shuffle 20: 2
+───────────────────────────────────────────────────────
+  Configurazione : 70/30 MIX
+  Shuffle totali : 30  (2 shuffle senza dominanza)
+  Avg steps      : 40.9
+  Min steps      : 2
+  Max steps      : 92
+  Dettaglio per shuffle:
+    shuffle  1: 9
+    shuffle  2: 38
+    shuffle  3: 34
+    shuffle  4: 21
+    shuffle  5: 20
+    shuffle  6: 70
+    shuffle  7: never
+    shuffle  8: 25
+    shuffle  9: 2
+    shuffle 10: 40
+    shuffle 11: 21
+    shuffle 12: 25
+    shuffle 13: 88
+    shuffle 14: 86
+    shuffle 15: 80
+    shuffle 16: 33
+    shuffle 17: 25
+    shuffle 18: 65
+    shuffle 19: 87
+    shuffle 20: 45
+    shuffle 21: 92
+    shuffle 22: 3
+    shuffle 23: never
+    shuffle 24: 48
+    shuffle 25: 10
+    shuffle 26: 74
+    shuffle 27: 28
+    shuffle 28: 26
+    shuffle 29: 38
+    shuffle 30: 12
+───────────────────────────────────────────────────────
+  Configurazione : 70/30 PRO
+  Shuffle totali : 20  (4 shuffle senza dominanza)
+  Avg steps      : 25.5
+  Min steps      : 2
+  Max steps      : 50
+  Dettaglio per shuffle:
+    shuffle  1: 14
+    shuffle  2: 22
+    shuffle  3: 2
+    shuffle  4: 7
+    shuffle  5: never
+    shuffle  6: 47
+    shuffle  7: never
+    shuffle  8: 41
+    shuffle  9: 5
+    shuffle 10: never
+    shuffle 11: 13
+    shuffle 12: 36
+    shuffle 13: 46
+    shuffle 14: 50
+    shuffle 15: never
+    shuffle 16: 2
+    shuffle 17: 33
+    shuffle 18: 18
+    shuffle 19: 25
+    shuffle 20: 47
+───────────────────────────────────────────────────────
+
+Tabella riassuntiva:
+
+Configurazione     Avg    Min    Max   Never
+─────────────── ────── ────── ──────  ──────
+60/40 MIX          3.7      2     10       0
+60/40 PRO          2.8      2      7       0
+70/30 MIX         40.9      2     92       2
+70/30 PRO         25.5      2     50       4
+
