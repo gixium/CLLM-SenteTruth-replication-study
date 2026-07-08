@@ -1,0 +1,482 @@
+[
+  {
+    "id": 1,
+    "original_question": "The following are the Chinese multiple-choice questions about the junior high school physics exam. Please select the correct answers (just return the correct options and their explanations).\n\nRegarding the transmission of information, the following statement is correct ____\nA. Beidou satellite positioning system can provide 24/7 instant positioning services\nB. 5G network communication mainly uses optical fibers to transmit information.\nC. The main function of a mobile phone microphone is to turn the sound signal into a constant current\nD. Electromagnetic waves can only transmit sound signals, but not image signals.",
+    "proposition": "Regarding information transmission, the Beidou satellite positioning system can provide 24/7 instant positioning services (option A).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "junior_high"
+  },
+  {
+    "id": 2,
+    "original_question": "The following are the Chinese multiple-choice questions about the junior high school physics exam. Please select the correct answers (just return the correct options and their explanations).\n\nThe following statement is in line with the actual situation ____\nA. The normal body temperature of a person is about 39℃\nB. The walking speed of an adult is about 1.1m/s\nC. The weight of middle school students is about 50N\nD. The volume of a basketball is about 1m3",
+    "proposition": "The statement in line with actual situations is that the walking speed of an adult is about 1.1 m/s (option B).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "junior_high"
+  },
+  {
+    "id": 3,
+    "original_question": "The following are the Chinese multiple-choice questions about the junior high school physics exam. Please select the correct answers (just return the correct options and their explanations).\n\nThe following analysis of measuring instruments is correct____\nA. Mercury thermometer uses the principle of liquid thermal expansion and contraction\nB. Pallet balances utilize the principle of labor-saving leverage\nC. Electric energy meter uses the thermal effect of current\nD. The liquid pressure gauge utilizes the principle of the communicator",
+    "proposition": "Regarding measuring instruments, mercury thermometers use the principle of liquid thermal expansion and contraction (option A).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "junior_high"
+  },
+  {
+    "id": 4,
+    "original_question": "The following are the Chinese multiple-choice questions about the junior high school physics exam. Please select the correct answers (just return the correct options and their explanations).\n\nRegarding molecular dynamic theory, the incorrect statement among the following statements is____\nA. Matter is composed of a large number of molecules\nB. The higher the temperature, the more intense the molecule's movement\nC. Molecules are the smallest particles that make up substances\nD. Solids are difficult to compress, which indicates that there is repulsion between molecules.",
+    "proposition": "Regarding molecular dynamic theory, the incorrect statement is that molecules are the smallest particles that make up substances (option C).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "junior_high"
+  },
+  {
+    "id": 5,
+    "original_question": "The following are the Chinese multiple-choice questions about the junior high school physics exam. Please select the correct answers (just return the correct options and their explanations).\n\nRegarding safe electricity use, the following is wrong____\nA. When using the pen, your hands should touch the metal part of the back end of the pen.\nB. For ease of use, you can cut off the pins that protect the ground wire in the three-pin plug.\nC. Connect to the leakage protector, which can disconnect the circuit when conductor leakage, electrical short circuit and other faults.\nD. When a high-voltage line breaks and lands, people cannot get close to the landing place.",
+    "proposition": "Regarding safe electricity use, the wrong practice is to cut off the pins that protect the ground wire in the three-pin plug (option B).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "junior_high"
+  },
+  {
+    "id": 6,
+    "original_question": "The following are the Chinese multiple-choice questions about the junior high school physics exam. Please select the correct answers (just return the correct options and their explanations).\n\nRegarding temperature, heat and internal energy, the following statement is correct ____\nA. The internal energy of an object increases, and the temperature will definitely increase.\nB. When the temperature of the object increases, heat must be absorbed\nC. The temperature of the object decreases, and the internal energy will definitely decrease.\nD. The object absorbs heat and the temperature will increase",
+    "proposition": "Regarding temperature, heat, and internal energy, when the temperature of an object decreases, its internal energy will definitely decrease (option C).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "junior_high"
+  },
+  {
+    "id": 7,
+    "original_question": "The following are the Chinese multiple-choice questions about the junior high school physics exam. Please select the correct answers (just return the correct options and their explanations).\n\nThe following statement is correct ____\nA. The larger the object, the larger the mass\nB. The density of solids is always greater than that of liquids\nC. The larger the mass of the same substance, the larger the specific heat capacity.\nD. Crystals have fixed melting points",
+    "proposition": "The correct statement is that crystals have fixed melting points (option D).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "junior_high"
+  },
+  {
+    "id": 8,
+    "original_question": "The following are the Chinese multiple-choice questions about the junior high school physics exam. Please select the correct answers (just return the correct options and their explanations).\n\nXiao Ming and Xiao Hong walked from the same place along the same line at the same speed at the same time, and at the same time in the opposite direction at a constant speed. After 1 minute, the two were 120m apart. The following statement is correct ____\nA. Taking Xiao Ming as a reference, Xiao Hong's speed is 2m/s\nB. Taking the ground as a reference, Xiaohong's speed is 2m/s\nC. Taking Xiao Ming as a reference, Xiao Hong is still\nD. If Xiao Ming is still, the reference object selected is the ground",
+    "proposition": "Taking Xiao Ming as a reference, Xiao Hong's speed is 2 m/s when they walk in opposite directions (option A).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "junior_high"
+  },
+  {
+    "id": 9,
+    "original_question": "The following are the Chinese multiple-choice questions about the junior high school physics exam. Please select the correct answers (just return the correct options and their explanations).\n\nThe following statement is correct ____\nA. The temperature of the two objects is the same, and the internal energy must be the same\nB. Compared with two objects, the greater the molecular kinetic energy, the greater the internal energy.\nC. Object A transfers heat to object B, which means that object A has a large energy in it.\nD. In diffusion phenomenon, molecules can move from low-temperature objects to high-temperature objects",
+    "proposition": "Regarding internal energy, in diffusion phenomena molecules can move from low-temperature objects to high-temperature objects (option D).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "junior_high"
+  },
+  {
+    "id": 10,
+    "original_question": "The following are the Chinese multiple-choice questions about the junior high school physics exam. Please select the correct answers (just return the correct options and their explanations).\n\nThe following statement about the heat movement is incorrect ____\nA. The compressed lead blocks can be combined, indicating that there is gravity between molecules\nB. The rapid spread of ink in hot water indicates that the higher the temperature, the more intense the molecular movement.\nC. Solids are difficult to compress, indicating that there is only repulsion between solids\nD. The fragrance of osmanthus flowers indicates that they are constantly doing irregular exercises.",
+    "proposition": "Regarding heat movement, the incorrect statement is that there is only repulsion between solids (option C).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "junior_high"
+  },
+  {
+    "id": 11,
+    "original_question": "The following are the Chinese multiple-choice questions about the junior high school physics exam. Please select the correct answers (just return the correct options and their explanations).\n\nThe following options are physical notes compiled by Xiao Ming, and the wrong one is ____\nA. Machinery that does work quickly may not be very efficient\nB. The moving pulley can save effort and change the direction of force\nC. The color of an opaque object is determined by the color light it reflects.\nD. The large temperature difference between day and night in desert areas is related to the small specific heat capacity of sand and gravel.",
+    "proposition": "In Xiao Ming's physics notes, the wrong statement is that a moving pulley can change the direction of force (option B).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "junior_high"
+  },
+  {
+    "id": 12,
+    "original_question": "The following are the Chinese multiple-choice questions about the junior high school physics exam. Please select the correct answers (just return the correct options and their explanations).\n\nThe following statements about temperature, internal energy, and heat are correct____\nA. The lower the temperature of the object, the less heat it contains\nB. Both work and heat transfer can change the internal energy of an object.\nC. The energy inside the object increases, and the temperature will definitely increase\nD. The greater the mechanical energy of an object, the greater the internal energy.",
+    "proposition": "Regarding temperature, internal energy, and heat, both work and heat transfer can change the internal energy of an object (option B).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "junior_high"
+  },
+  {
+    "id": 13,
+    "original_question": "The following are the Chinese multiple-choice questions about the junior high school physics exam. Please select the correct answers (just return the correct options and their explanations).\n\nRegarding home circuits and safe electricity use, the following statement is correct ____\nA. In the home circuit, the switch must be connected between the light bulb and the neutral wire.\nB. When using the electric pen, do not hold the metal body of the end of the pen with your fingers.\nC. The refrigerator must use a three-hole socket\nD. If the leakage protector trips in the home circuit, it must be that there is a short circuit in the circuit.",
+    "proposition": "Regarding home circuits and safe electricity use, the refrigerator must use a three-hole socket (option C).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "junior_high"
+  },
+  {
+    "id": 14,
+    "original_question": "The following are the Chinese multiple-choice questions about the junior high school physics exam. Please select the correct answers (just return the correct options and their explanations).\n\nIn the following scenarios, the one that can reduce friction is ____\nA. Hovercraft sailing off the surface\nB. Apply anti-slip powder to the athlete's hands\nC. The bottle cap is engraved with stripes\nD. Press the brakes with force when braking",
+    "proposition": "The scenario that can reduce friction is a hovercraft sailing off the surface (option A).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "junior_high"
+  },
+  {
+    "id": 15,
+    "original_question": "The following are the Chinese multiple-choice questions about the junior high school physics exam. Please select the correct answers (just return the correct options and their explanations).\n\nRegarding lenses, the following statement is correct ____\nA. Use a projector to enlarge the picture\nB. Use a telescope to see cells in the blood\nC. The camera can form an inverted and enlarged virtual image\nD. The magnifying glass can form a magnified and magnified real image",
+    "proposition": "Regarding lenses, a projector is used to enlarge the picture (option A).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "junior_high"
+  },
+  {
+    "id": 16,
+    "original_question": "The following are the Chinese multiple-choice questions about the junior high school physics exam. Please select the correct answers (just return the correct options and their explanations).\n\nThe Hong Kong-Zhuhai-Macao Bridge, known as the \"Seven Wonders of the New World\", consists of two parts: \"water bridge deck\" and \"undersea tunnel\", among which the undersea tunnel is long ____\nA. The piers in the water are not subject to the buoyancy of sea water\nB. The car driving on the bridge deck is stationary with respect to the light pole\nC. It takes at least 34.2 min to pass through the undersea tunnel.\nD. Specular reflection of light on decorative materials",
+    "proposition": "Regarding the Hong Kong-Zhuhai-Macao Bridge undersea tunnel, it takes at least 34.2 minutes to pass through (option C).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "junior_high"
+  },
+  {
+    "id": 17,
+    "original_question": "The following are the Chinese multiple-choice questions about the junior high school physics exam. Please select the correct answers (just return the correct options and their explanations).\n\nThe following statement is correct ____\nA. In early spring, the melting of ice and snow is a phenomenon of vaporization\nB. In late autumn, the white frost on the grass leaves is a condensation phenomenon\nC. In midsummer, the temperature of the ground increases and the heat contained in the ground increases.\nD. In severe winter, rubbing hands to keep warm is to increase internal energy by using heat transfer.",
+    "proposition": "Regarding seasonal phenomena, in late autumn the white frost on grass leaves is a condensation (deposition) phenomenon (option B).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "junior_high"
+  },
+  {
+    "id": 18,
+    "original_question": "The following are the Chinese multiple-choice questions about the junior high school physics exam. Please select the correct answers (just return the correct options and their explanations).\n\nPanzhihua City Ertan Reservoir is a famous scenic spot, with lakes and mountains complementing each other. The correct statement among the following is____\nA. The dark shadow of the ship on the water is a reflection of light\nB. The reflection of green mountains in the water is the dispersion of light\nC. Water looks shallower than it actually is the refraction of light\nD. The bird flies across the water, and its virtual image in the water is getting bigger and bigger",
+    "proposition": "At the Ertan Reservoir, water looking shallower than it actually is demonstrates the refraction of light (option C).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "junior_high"
+  },
+  {
+    "id": 19,
+    "original_question": "The following are the Chinese multiple-choice questions about the junior high school physics exam. Please select the correct answers (just return the correct options and their explanations).\n\nIn today's society, energy issues are an important issue, and the crisis in the Fukushima nuclear power plant has made energy security issues more concerned. Which of the following energy uses the least pollution to the environment____\nA. Nuclear energy\nB. Oil\nC. Coal\nD. Solar energy",
+    "proposition": "Among energy sources, solar energy causes the least pollution to the environment (option D).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "junior_high"
+  },
+  {
+    "id": 20,
+    "original_question": "The following are the Chinese multiple-choice questions about the junior high school physics exam. Please select the correct answers (just return the correct options and their explanations).\n\nRegarding mechanical energy and its transformation, the incorrect statement among the following is____\nA. The mechanical energy is converted into internal energy from leaving the hand to stopping.\nB. During the process of a constant speed of parachute falling, the potential energy of gravity becomes smaller and the kinetic energy remains unchanged.\nC. As long as the position of the object changes, the gravity potential energy of the object will definitely change.\nD. When the elevator rises at a constant speed, the kinetic energy remains unchanged, the gravitational potential energy increases, and the mechanical energy increases.",
+    "proposition": "Regarding mechanical energy, the incorrect statement is that as long as an object's position changes, its gravitational potential energy will definitely change (option C).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "junior_high"
+  },
+  {
+    "id": 21,
+    "original_question": "The following are the single choice questions for high school physics exams in China. Please select the correct answers (just return the correct options and their explanations).\n\nOn a flat softball field, the batsman waves the bat to hit the softball horizontally, and the softball lands after a period of flight. If the air resistance is not taken into account, then ____\nA. The instantaneous speed of the softball when landing is determined only by the initial speed\nB. The direction of the instantaneous speed of the softball when it lands is determined only by the height of the hit point from the ground.\nC. The horizontal displacement of a softball in the air is determined only by the initial velocity.\nD. The time of a softball moving in the air is determined only by the height of the hit point from the ground",
+    "proposition": "In the softball projectile motion problem, the time of a softball moving in the air is determined only by the height of the hit point from the ground (option D).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "high_school"
+  },
+  {
+    "id": 22,
+    "original_question": "The following are the single choice questions for high school physics exams in China. Please select the correct answers (just return the correct options and their explanations).\n\nThere are many ways to define physical quantities. The ratiometric definition is one of the more extensive ones. The following physical quantities and corresponding formulas are not given according to the ratiometric definition.\nA. Power $P=\\frac{w}{t}$\nB. Magnetic induction intensity $B=\\frac{F}{IL}$\nC. Acceleration $a=\\frac{F}{m}$\nD. Current intensity $I=\\frac{q}{t}$",
+    "proposition": "Among the ratiometric definitions, acceleration a = F/m is not defined using the ratiometric method (option C).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "high_school"
+  },
+  {
+    "id": 23,
+    "original_question": "The following are the single choice questions for high school physics exams in China. Please select the correct answers (just return the correct options and their explanations).\n\nRegarding Brownian motion, the correct option for the following statement is ____\nA. Brownian motion is the irregular motion of liquid molecules\nB. Brownian motion is the irregular motion of suspended particles\nC. The larger the suspended particles, the more obvious the Brownian motion\nD. The higher the liquid temperature, the less obvious Brownian movement",
+    "proposition": "Regarding Brownian motion, it is the irregular motion of suspended particles (option B).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "high_school"
+  },
+  {
+    "id": 24,
+    "original_question": "The following are the single choice questions for high school physics exams in China. Please select the correct answers (just return the correct options and their explanations).\n\nAn object moves in a uniform linear motion under several forces. When a force opposite to the velocity direction gradually decreases, the object's ____\nA. Acceleration decreases, velocity decreases, displacement decreases\nB. Acceleration decreases, velocity decreases, displacement increases\nC. Increased acceleration, increased velocity, increased displacement\nD. Increased acceleration, increased velocity, decreased displacement",
+    "proposition": "When a force opposite to velocity gradually decreases during uniform motion, acceleration increases, velocity increases, and displacement increases (option C).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "high_school"
+  },
+  {
+    "id": 25,
+    "original_question": "The following are the single choice questions for high school physics exams in China. Please select the correct answers (just return the correct options and their explanations).\n\nThere is a decay called EC decay. EC decay occurs in a radioactive nucleus with relatively small number of neutrons in the nucleus. A proton ($_{1}^{1}H$) in the nucleus can capture an extranuclear electron ($_{-1}^{0}e$) and emit a neutrino and transform it into a neutron ($_{1}^{0}n$). After an EC decay, the ____ of the nucleus is ____\nA. The mass number remains unchanged, the atomic number is reduced by 1\nB. The mass number increases by 1, the atomic number remains unchanged\nC. The mass number remains unchanged, the atomic number remains unchanged\nD. Mass number decreases by 1, atomic number decreases by 1",
+    "proposition": "In EC decay, the mass number of the nucleus remains unchanged while the atomic number is reduced by 1 (option A).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "high_school"
+  },
+  {
+    "id": 26,
+    "original_question": "The following are the single choice questions for high school physics exams in China. Please select the correct answers (just return the correct options and their explanations).\n\nThe correct statement is ____\nA. The electric field line is the actual closed curve in the electric field\nB. The field strength of the electric field with dense electric field lines in the electric field\nC. The direction of the electric field intensity at a certain point is the same as the direction of the force under the negative charge at that point.\nD. The direction of the electric field intensity at a certain point is the same as the direction of the force under the positive charge at that point.",
+    "proposition": "Regarding electric fields, the direction of the electric field intensity at a point is the same as the direction of the force on a positive charge at that point (option D).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "high_school"
+  },
+  {
+    "id": 27,
+    "original_question": "The following are the single choice questions for high school physics exams in China. Please select the correct answers (just return the correct options and their explanations).\n\nAmong the following phenomena, the refraction phenomenon is ____\nA. People standing by the river see the image of clouds in the water\nB. The driver saw the scene behind the car in the rearview mirror\nC. Use a periscope to observe the outside scene in the trench\nD. The chopsticks inserted obliquely in the water will become bent upwards.",
+    "proposition": "Among the optical phenomena listed, chopsticks inserted obliquely in water appearing bent upward is a refraction phenomenon (option D).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "high_school"
+  },
+  {
+    "id": 28,
+    "original_question": "The following are the single choice questions for high school physics exams in China. Please select the correct answers (just return the correct options and their explanations).\n\nApply a horizontal tension to an object stationary on a smooth horizontal plane, and the moment the force begins to act ____\nA. Objects gain speed immediately\nB. The object obtains acceleration immediately\nC. The object obtains both velocity and acceleration\nD. Since the object can move in time, its velocity and acceleration are zero.",
+    "proposition": "When a horizontal tension is applied to a stationary object on a smooth surface, the object obtains acceleration immediately (option B).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "high_school"
+  },
+  {
+    "id": 29,
+    "original_question": "The following are the single choice questions for high school physics exams in China. Please select the correct answers (just return the correct options and their explanations).\n\nIn the double-slit interference experiment, the light emitted by the monosodium lamp with a wavelength of 589 nm formed an interference pattern on the screen 1.00 m away from the double-slit. The spacing between the centers of two adjacent bright patterns on the pattern is 0.350 cm, so the spacing between the double slots is _____\nA. $2.06\\times10^{-7}\\text{m}$\nB. $2.06\\times10^{-4}\\text{m}$\nC. $1.68\\times10^{-4}\\text{m}$\nD. $1.68\\times10^{-3}\\text{m}$",
+    "proposition": "In the double-slit interference experiment with 589 nm light, the spacing between the double slits is 1.68 × 10⁻⁴ m (option C).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "high_school"
+  },
+  {
+    "id": 30,
+    "original_question": "The following are the single choice questions for high school physics exams in China. Please select the correct answers (just return the correct options and their explanations).\n\nThe correct statement among the following is____\nA. The higher the communication and television broadcast satellites launched by humans, the better, because the transmission range is large.\nB. The higher the artificial Earth satellite is from the ground, the greater its mechanical energy, but the smaller its operating speed.\nC. Because artificial Earth satellites are subject to tiny resistance for a long time, their operating speed will gradually decrease.\nD. The Shenzhou spacecraft launched by my country on November 20, 1999 has been in a state of weightlessness while landing on the ground in Inner Mongolia.",
+    "proposition": "Regarding artificial Earth satellites, the higher the orbit from the ground, the greater the mechanical energy but the smaller the operating speed (option B).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "high_school"
+  },
+  {
+    "id": 31,
+    "original_question": "The following are the single choice questions for high school physics exams in China. Please select the correct answers (just return the correct options and their explanations).\n\nWhen a car is driving at rated power, it is impossible to do which of the following sports____\nA. Constant linear motion\nB. Uniformly accelerate linear motion\nC. Decelerating linear motion\nD. Constant circumferential motion",
+    "proposition": "When a car is driving at rated power, it is impossible to perform uniformly accelerated linear motion (option B).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "high_school"
+  },
+  {
+    "id": 32,
+    "original_question": "The following are the single choice questions for high school physics exams in China. Please select the correct answers (just return the correct options and their explanations).\n\nAn object with a mass of 1 kg slides statically from the top of a smooth inclined surface with an inclined angle of 30° and a length of 2 m. Assume that the initial point is a zero potential energy point. When it slides to the midpoint of the inclined surface, the mechanical energy and kinetic energy of the inclined surface are ____\nA. 10J, 5J\nB. 10J, 15J\nC. 0J, 5J\nD. 20J, 10J",
+    "proposition": "For an object sliding from a smooth incline with 30° angle and 2 m length, at the midpoint the mechanical energy is 0 J and kinetic energy is 5 J (option C).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "high_school"
+  },
+  {
+    "id": 33,
+    "original_question": "The following are the single choice questions for high school physics exams in China. Please select the correct answers (just return the correct options and their explanations).\n\nThe period for a spring vibrator that vibrates horizontally in a horizontal direction to perform a simple harmonic vibration is T, then ____\nA. If the elastic force does work on the oscillator within time Δt, then Δt must be an integer multiple of T/2.\nB. If the elastic force does zero work on the oscillator within time Δt, then Δt cannot be less than T/2\nC. If the elastic force impulse on the oscillator is zero within time Δt, then Δt must be an integer multiple of T\nD. If the impulse of the elastic force on the oscillator is zero within time Δt, then Δt may be less than T/4",
+    "proposition": "Regarding the spring vibrator performing simple harmonic vibration with period T, if elastic force impulse is zero within time Δt, then Δt may be less than T/4 (option D).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "high_school"
+  },
+  {
+    "id": 34,
+    "original_question": "The following are the single choice questions for high school physics exams in China. Please select the correct answers (just return the correct options and their explanations).\n\nWhich of the following units belongs to the basic units in the International System of Units is____\nA. N,kg,s\nB. km,mm,N\nC. s,m,min\nD. kg,m,s",
+    "proposition": "In the International System of Units, the basic units are kg, m, and s (option D).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "high_school"
+  },
+  {
+    "id": 35,
+    "original_question": "The following are the single choice questions for high school physics exams in China. Please select the correct answers (just return the correct options and their explanations).\n\nWhich of the following statements is correct? ____\nA. Brownian motion is the movement of liquid molecules, which shows that molecules never stop doing irregular movements.\nB. The small dewdrops on the leaves are spherical due to the liquid surface tension.\nC. LCD displays take advantage of the characteristics of liquid crystal being isotropic to light.\nD. When the distance between two molecules is greater than the distance r0 at the equilibrium position, the larger the distance between molecules, the smaller the potential energy of the molecule.",
+    "proposition": "Regarding molecular physics, the small dewdrops on leaves are spherical due to liquid surface tension (option B).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "high_school"
+  },
+  {
+    "id": 36,
+    "original_question": "The following are the single choice questions for high school physics exams in China. Please select the correct answers (just return the correct options and their explanations).\n\nWhich of the following measures are to prevent the harm caused by static electricity____\nA. Electrostatic copying\nB. Install electrostatic dust collector in tall chimneys\nC. Electrostatic spray paint\nD. Install lightning needles on top of tall buildings",
+    "proposition": "Among the listed measures, installing lightning needles on top of tall buildings is to prevent harm caused by static electricity (option D).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "high_school"
+  },
+  {
+    "id": 37,
+    "original_question": "The following are the single choice questions for high school physics exams in China. Please select the correct answers (just return the correct options and their explanations).\n\nIn summer, if the bicycle inner tube is inflated enough and exposed to the sun, the tire is very prone to burst. The following description is about this phenomenon (the volume of the inner tube is almost unchanged during exposure to the sun)\r\n① The tire burst is the result of the increase in the temperature of the gas in the tire and the sharp increase in the repulsion between gas molecules.\r\n② During the process before bursting, the gas temperature rises, irregular thermal motion of molecules intensifies, and the gas pressure increases.\r\n③In the process before bursting, the gas absorbs heat and the internal energy increases.\r\n④ The moment the tire suddenly bursts, the internal energy of the gas decreases.\r\nThe correct description is ____\nA. ①②③④\nB. ②③④\nC. ①③④\nD. ①②④",
+    "proposition": "Regarding a bicycle tire exposed to sun, the correct descriptions are ②③④ (option B).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "high_school"
+  },
+  {
+    "id": 38,
+    "original_question": "The following are the single choice questions for high school physics exams in China. Please select the correct answers (just return the correct options and their explanations).\n\nAmong the following descriptions about overweight and weightlessness, the correct one is ____\nA. The elevator is slowing down and people are overweight in the elevator\nB. The train accelerates on the horizontal track, and the people on the train are overweight\nC. When the swing is swinging, when the swing is at its lowest position, the person is in a state of weightlessness.\nD. Astronauts in the International Space Station are in weightless state",
+    "proposition": "Regarding overweight and weightlessness, astronauts in the International Space Station are in a weightless state (option D).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "high_school"
+  },
+  {
+    "id": 39,
+    "original_question": "The following are the single choice questions for high school physics exams in China. Please select the correct answers (just return the correct options and their explanations).\n\nA neutron and a nucleus with a mass A$(A>1)$ have an elastic positive collision. If the nucleus before the collision is stationary, the ratio of the neutron rate before the collision and after the collision is ____\nA. $\\frac{A+1}{A-1}$\nB. $\\frac{A-1}{A+1}$\nC. $\\frac{4A}{(A+1)^2}$\nD. $\\frac{\\left(A+1\\right)^{2}}{\\left(A-1\\right)^{2}}$",
+    "proposition": "In the neutron-nucleus elastic collision, the ratio of neutron speed before to after collision is (A+1)/(A-1) (option A).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "high_school"
+  },
+  {
+    "id": 40,
+    "original_question": "The following are the single choice questions for high school physics exams in China. Please select the correct answers (just return the correct options and their explanations).\n\nLate at night on April 20, the Long March 3B carrier rocket successfully launched its 44th Beidou navigation satellite. This is the first launch of the Beidou navigation satellite in 2019. The Beidou satellite navigation system continues to be highly dense global networked this year. If a satellite moves around the earth in a uniform speed and circumference, its orbit radius is r and its motion period is T. It is known that the earth's radius is R and the gravitational constant is G. The following statement is correct ____\nA. The linear velocity size of the satellite $v=\\frac{\\pi r}{T}$\nB. The mass of the earth $M=\\frac{4\\pi^2R^3}{GT^2}$\nC. The average density of the earth $\\rho=\\frac{3\\pi r^3}{GT^2R^3}$\nD. Earth's surface gravity acceleration magnitude $g=\\frac{4\\pi^2R^3}{T^2r^2}$",
+    "proposition": "Regarding the Beidou satellite in circular orbit with radius r and period T, the average density of the Earth is ρ = 3πr³/(GT²R³) (option C).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "high_school"
+  },
+  {
+    "id": 41,
+    "original_question": "The following are the single choice questions for China on the university physics exam. Please select the correct answers (just return the correct options and their explanations).\n\nWhen the wavelength of irradiated light changes from 400 nm to 300 nm, for the same metal, the stop voltage measured in the photoelectric effect experiment will be (Planck constant h=6.63×10^{-34}J·s, basic charge e=1.60×10^{-19}C)____\nA. Reduce 0.56V\nB. Reduce by 0.34V\nC. Increase 0.165V\nD. Increase 1.035V",
+    "proposition": "When irradiated light wavelength changes from 400 nm to 300 nm, the stop voltage in the photoelectric effect increases by 1.035 V (option D).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "university"
+  },
+  {
+    "id": 42,
+    "original_question": "The following are the single choice questions for China on the university physics exam. Please select the correct answers (just return the correct options and their explanations).\n\nSuppose the propagation speed of sound waves in the medium is $u$ and the frequency of the sound source is $v_s$. If the sound source S does not move, and the receiver R moves along the S and R lines along the S and R lines with respect to the media, the vibration frequency of the particle P located at the midpoint of the S and R lines is: ____\nA. $v_s$\nB. $\\frac{u+v_R}{u}v_s$\nC. $\\frac{u}{u+v_R}v_s$\nD. $\\frac{u}{u-v_R}v_s$",
+    "proposition": "When the sound source S is stationary and receiver R moves away, the vibration frequency of particle P at the midpoint is νs (option A).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "university"
+  },
+  {
+    "id": 43,
+    "original_question": "The following are the single choice questions for China on the university physics exam. Please select the correct answers (just return the correct options and their explanations).\n\nBoth the photoelectric effect and the Compton effect include the interaction process between electrons and photons. In this regard, among the following understandings, the correct one is ____\nA. The system composed of electrons and photons in both effects obeys the law of conservation of momentum and conservation of energy\nB. Both effects are equivalent to the elastic collision process between electrons and photons\nC. Both effects belong to the process of electrons absorbing photons\nD. Photoelectric effect is a process of absorbing photons, while Compton effect is equivalent to the elastic collision process of photons and electrons.",
+    "proposition": "Regarding photoelectric and Compton effects, the photoelectric effect absorbs photons while the Compton effect is equivalent to elastic collision of photons and electrons (option D).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "university"
+  },
+  {
+    "id": 44,
+    "original_question": "The following are the single choice questions for China on the university physics exam. Please select the correct answers (just return the correct options and their explanations).\n\nThere are the following statements regarding photoelectric effect: ____ (1) Visible light of any wavelength can produce photoelectric effect when it is irradiated to any metal surface; (2) If the frequency of incident light is greater than the red limit of a given metal, then when the metal is irradiated by light of different frequencies, the maximum initial kinetic energy of the photoelectrons released is also different; (3) If the frequency of incident light is greater than the red limit of a given metal, then when the frequency of incident light is greater than the red limit of a given metal, the number of photoelectrons released per unit time must be equal; (4) If the frequency of incident light is greater than the red limit of a given metal, when the frequency of incident light remains unchanged and the intensity doubles, the saturated photocurrent of the metal will also double.\nA. (1), (2), (3)\nB. (2), (3), (4)\nC. (2), (3)\nD. (2), (4)",
+    "proposition": "Regarding photoelectric effect statements, the correct ones are (2) and (4) (option D).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "university"
+  },
+  {
+    "id": 45,
+    "original_question": "The following are the single choice questions for China on the university physics exam. Please select the correct answers (just return the correct options and their explanations).\n\n(1) For a certain observer, two events occurring at the same place and at the same time in a certain inertial system. For observers in other inertial systems that move in a uniform linear line relative to the inertial system, do they occur simultaneously? (2) Do two events that occur at the same time and at different places in a certain inertial system occur simultaneously in other inertial systems? The correct answer to the above two questions is: ____\nA. (1) At the same time, (2) Not at the same time\nB. (1) Different at the same time (2) Simultaneous\nC. (1) At the same time, (2) At the same time\nD. (1) Different, (2) Different",
+    "proposition": "Regarding simultaneity in special relativity, two events occurring at the same place and time in one inertial system occur simultaneously in all inertial systems (option A).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "university"
+  },
+  {
+    "id": 46,
+    "original_question": "The following are the single choice questions for China on the university physics exam. Please select the correct answers (just return the correct options and their explanations).\n\nWhen a metal is irradiated with monochrome light with frequency ν, the maximum kinetic energy of the escaped photoelectron is E_K; if a metal is irradiated with monochrome light with frequency 2ν, the maximum kinetic energy of the escaped photoelectron is ____\nA. 2E_K\nB. 2hν-E_K\nC. hν-E_K\nD. hν+E_K",
+    "proposition": "When a metal irradiated with monochromatic light of frequency 2ν, the maximum kinetic energy of the escaped photoelectron is hν + Ek (option D).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "university"
+  },
+  {
+    "id": 47,
+    "original_question": "The following are the single choice questions for China on the university physics exam. Please select the correct answers (just return the correct options and their explanations).\n\nThe air velocity of an aircraft relative to the air is 200km/h, the wind is 56km/h, and the direction is from west to east. The ground radar station measured the aircraft speed to be 192km/h, and the direction is ____\nA. 16.3° to the west of the south\nB. 16.3° northeastern\nC. Go south or north\nD. 16.3° southwest",
+    "proposition": "For the aircraft problem with 200 km/h airspeed, 56 km/h east wind, and 192 km/h ground speed, the direction is south or north (option C).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "university"
+  },
+  {
+    "id": 48,
+    "original_question": "The following are the single choice questions for China on the university physics exam. Please select the correct answers (just return the correct options and their explanations).\n\nHelium and oxygen with the same temperature and pressure, the average kinetic energy ε of their molecules and the average translation kinetic energy w are as follows: ____\nA. Both ε and w are equal\nB. ε is equal, while w is not equal\nC. w is equal, but ε is not equal\nD. Both ε and w are equal",
+    "proposition": "For helium and oxygen at the same temperature and pressure, the average translational kinetic energy w is equal but average kinetic energy ε is not equal (option C).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "university"
+  },
+  {
+    "id": 49,
+    "original_question": "The following are the single choice questions for China on the university physics exam. Please select the correct answers (just return the correct options and their explanations).\n\nAmong the following conclusions about simultaneity, the correct one is ____\nA. Two events that occur simultaneously in one inertial system must occur simultaneously in another inertial system.\nB. Two events that occur simultaneously in different locations of a system of inertia must occur simultaneously in another system of inertia.\nC. Two events that occur simultaneously in the same location of a system of inertia must occur simultaneously in the other system of inertia.\nD. Two events that occur at different locations in one inertial system must occur at different times in another inertial system.",
+    "proposition": "Regarding simultaneity, two events at the same location and time in one inertial system must occur simultaneously in another inertial system (option C).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "university"
+  },
+  {
+    "id": 50,
+    "original_question": "The following are the single choice questions for China on the university physics exam. Please select the correct answers (just return the correct options and their explanations).\n\nThe cycle curves of the two Kano heat machines are shown in the figure. One operates between two heat sources with temperatures T1 and T3, and the other operates between two heat sources with temperatures T2 and T3. It is known that the area surrounded by these two cycle curves is equal. From this we can see: ____\nA. The efficiency of the two heaters must be equal.\nB. The heat absorbed by the two heat machines from the high-temperature heat source must be equal.\nC. The heat released by the two heat machines to the low-temperature heat source must be equal.\nD. The difference between the heat absorbed by the two heat machines and the heat released (absolute value) must be equal.",
+    "proposition": "For two Carnot heat engines with equal cycle curve areas, the difference between heat absorbed and heat released must be equal (option D).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "university"
+  },
+  {
+    "id": 51,
+    "original_question": "The following are the single choice questions for China on the university physics exam. Please select the correct answers (just return the correct options and their explanations).\n\nA certain amount of ideal gas starts at T and volume V. The gas undergoes three equilibrium processes during the following cycle: (1) Adiabatic expansion to a volume of 2V, (2) Equivalent changes to restore the temperature to T, (3) Isothermal compression to the original volume V, then ____ during this entire cycle\nA. Gas expel heat to the outside world\nB. Gas performs positive results on the outside world\nC. Increased energy in the gas\nD. Reduced energy in the gas",
+    "proposition": "For ideal gas undergoing adiabatic expansion, isochoric cooling, and isothermal compression, during the entire cycle the gas expels heat to the outside (option A).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "university"
+  },
+  {
+    "id": 52,
+    "original_question": "The following are the single choice questions for China on the university physics exam. Please select the correct answers (just return the correct options and their explanations).\n\nTwo metal spheres with radii R and r are very far apart. Connect the two balls together with an elongated wire and make them live. Under the influence of ignoring the conductor, the ratio of charge surface density of the two sphere surfaces σ_R / σ_r is ____\nA. R/r\nB. R^2 / r^2\nC. r^2 / R^2\nD. r/R",
+    "proposition": "For two metal spheres with radii R and r connected by wire, the charge surface density ratio σR/σr equals r/R (option D).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "university"
+  },
+  {
+    "id": 53,
+    "original_question": "The following are the single choice questions for China on the university physics exam. Please select the correct answers (just return the correct options and their explanations).\n\nThere are two identical containers with fixed volumes. One contains ammonia and the other contains hydrogen (think of as an ideal gas for rigid molecules). Their pressure and temperature are equal. Now, 5J of heat is transferred to hydrogen to increase the temperature of hydrogen. If the ammonia is also raised at the same temperature, the heat should be transferred to the ammonia is: ____\nA. 6J\nB. 5J\nC. 3J\nD. 2J",
+    "proposition": "For identical containers with ammonia and hydrogen at equal pressure and temperature, to raise ammonia by the same temperature as 5 J raises hydrogen, 6 J of heat is needed (option A).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "university"
+  },
+  {
+    "id": 54,
+    "original_question": "The following are the single choice questions for China on the university physics exam. Please select the correct answers (just return the correct options and their explanations).\n\nThere are several statements about the understanding of Gaussian theorem, the correct one is ____\nA. If E on the Gaussian surface is zero everywhere, there must be no charge in the surface\nB. If there is no charge in the Gaussian plane, E on the Gaussian plane is zero everywhere.\nC. If E on the Gaussian surface is not zero everywhere, there must be a charge in the Gaussian surface.\nD. If there is a net charge in the Gaussian plane, the electric field intensity flux through the Gaussian plane must be zero.",
+    "proposition": "Regarding Gauss's theorem, if E on the Gaussian surface is not zero everywhere, there must be a charge inside the surface (option C).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "university"
+  },
+  {
+    "id": 55,
+    "original_question": "The following are the single choice questions for China on the university physics exam. Please select the correct answers (just return the correct options and their explanations).\n\nTwo concentric uniformly charged spheres, with radii of $R_a$ and $R_b $($R_a＜R_b$), and the charged charges are $Q_a$ and $Q_b$ respectively. Suppose a point is $r$ away from the sphere center. When $R_a<r<R_b$, the electric field intensity of the point is: ____\nA. $\\frac{1}{4 \\pi \\varepsilon_0} \\cdot \\frac{Q_a+Q_b}{r^2}$\nB. $\\frac{1}{4 \\pi \\varepsilon_0} \\cdot \\frac{Q_a-Q_b}{r^2}$\nC. $\\frac{1}{4 \\pi \\varepsilon_0} \\cdot\\left(\\frac{Q_a}{r^2}+\\frac{Q_b}{R_b^2}\\right)$\nD. $\\frac{1}{4 \\pi \\varepsilon_0} \\cdot \\frac{Q_a}{r^2}$",
+    "proposition": "For two concentric charged spheres, when Ra < r < Rb, the electric field intensity is Qa/(4πε₀r²) (option D).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "university"
+  },
+  {
+    "id": 56,
+    "original_question": "The following are the single choice questions for China on the university physics exam. Please select the correct answers (just return the correct options and their explanations).\n\nJudgment on reversible processes and irreversible processes: (1) The reversible thermodynamic process must be a quasi-static process; (2) The quasi-static process must be a reversible process; (3) An irreversible process is a process that cannot be carried out in the opposite direction; (4) Any process with friction must be an irreversible process. Among the above four judgments, the correct one is ____\nA. (1), (2), (3)\nB. (1), (2), (4)\nC. (2), (4)\nD. (1), (4)",
+    "proposition": "Regarding reversible and irreversible processes, statements (1) and (4) are correct (option D).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "university"
+  },
+  {
+    "id": 57,
+    "original_question": "The following are the single choice questions for China on the university physics exam. Please select the correct answers (just return the correct options and their explanations).\n\nRegarding the electric displacement lines in the electrostatic field, which of the following statements is correct? ____\nA. It starts from a positive charge and ends at a negative charge, does not form a closed line, and does not interrupt.\nB. Any two electrical displacement lines are parallel to each other\nC. It starts from a positive free charge and ends at a negative free charge. Any two electric displacement lines do not intersect in a space without free charge.\nD. The electrical displacement line only appears in spaces with dielectrics.",
+    "proposition": "Regarding electric displacement lines, they start from positive free charges and end at negative free charges, and do not intersect in charge-free space (option C).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "university"
+  },
+  {
+    "id": 58,
+    "original_question": "The following are the single choice questions for China on the university physics exam. Please select the correct answers (just return the correct options and their explanations).\n\nRegarding Gauss' theorem, which of the following statements is correct? ____\nA. If the Gaussian plane does not surround the free charge, the electric displacement vector D of each point on the plane is 0.\nB. If D is zero everywhere on the Gaussian surface, there must be no free charge in the surface.\nC. The D flux of the Gaussian surface is only related to the free charge in the plane.\nD. None of the above statements are correct",
+    "proposition": "Regarding Gauss's theorem, the D flux of the Gaussian surface is only related to the free charge in the plane (option C).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "university"
+  },
+  {
+    "id": 59,
+    "original_question": "The following are the single choice questions for China on the university physics exam. Please select the correct answers (just return the correct options and their explanations).\n\nThere are several statements: (1)____\nA. Only (1) and (2) are correct\nB. Only (1) and (3) are correct\nC. Only (2) and (3) are correct\nD. All three statements are correct",
+    "proposition": "Among the given statements about thermodynamics, only statements (2) and (3) are correct (option C).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "university"
+  },
+  {
+    "id": 60,
+    "original_question": "The following are the single choice questions for China on the university physics exam. Please select the correct answers (just return the correct options and their explanations).\n\nIn the Newtonian ring experimental device, the flat convex lens with a radius of curvature of $R$ is in contact with the flat glass ring in the center, and they are filled with transparent medium with a refractive index of $n$. The wavelength of the parallel monochromatic light incident on the Newtonian ring device in the vacuum is $\\lambda$. Then the expression of the dark ring radius $r_k$ in the interference fringe formed by the reflected light is ________\nA. $r_k = \\sqrt{k\\lambda R}$\nB. $r_k=\\sqrt{k\\lambda R/n}$\nC. $r_k=\\sqrt{kn\\lambda R}$\nD. $r_k=\\sqrt{\\frac{k\\lambda}{nR}}$",
+    "proposition": "In the Newton's ring experiment with refractive index n medium, the dark ring radius expression is rk = √(kλR/n) (option B).",
+    "ground_truth": true,
+    "category": "physics",
+    "education_level": "university"
+  }
+]

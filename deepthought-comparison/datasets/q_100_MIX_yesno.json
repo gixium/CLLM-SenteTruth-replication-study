@@ -1,0 +1,702 @@
+[
+  {
+    "id": 1,
+    "original_question": "What is your name?",
+    "proposition": "An AI assistant does not have a personal name in the traditional sense.",
+    "ground_truth": true,
+    "category": "personal"
+  },
+  {
+    "id": 2,
+    "original_question": "How old are you?",
+    "proposition": "An AI assistant does not have an age, as it is a software program.",
+    "ground_truth": true,
+    "category": "personal"
+  },
+  {
+    "id": 3,
+    "original_question": "Where are you from?",
+    "proposition": "An AI assistant is a software program and does not have a physical place of origin.",
+    "ground_truth": true,
+    "category": "personal"
+  },
+  {
+    "id": 4,
+    "original_question": "What do you like to do?",
+    "proposition": "An AI assistant is designed to answer questions and assist users with various tasks.",
+    "ground_truth": true,
+    "category": "personal"
+  },
+  {
+    "id": 5,
+    "original_question": "What are your hobbies?",
+    "proposition": "An AI assistant does not have hobbies, as it is a software program.",
+    "ground_truth": true,
+    "category": "personal"
+  },
+  {
+    "id": 6,
+    "original_question": "What is your favorite food?",
+    "proposition": "An AI assistant does not eat food and therefore does not have a favorite food.",
+    "ground_truth": true,
+    "category": "personal"
+  },
+  {
+    "id": 7,
+    "original_question": "How is the weather?",
+    "proposition": "Weather conditions vary depending on geographic location and time of year.",
+    "ground_truth": true,
+    "category": "personal"
+  },
+  {
+    "id": 8,
+    "original_question": "What day is it today?",
+    "proposition": "The current day of the week depends on the date and time zone.",
+    "ground_truth": true,
+    "category": "personal"
+  },
+  {
+    "id": 9,
+    "original_question": "What time is it now?",
+    "proposition": "The current time depends on the observer's time zone.",
+    "ground_truth": true,
+    "category": "personal"
+  },
+  {
+    "id": 10,
+    "original_question": "Can you tell me a joke?",
+    "proposition": "Humor is a form of communication that uses incongruity or surprise to provoke laughter.",
+    "ground_truth": true,
+    "category": "personal"
+  },
+  {
+    "id": 11,
+    "original_question": "What is the largest animal in the world?",
+    "proposition": "The blue whale is the largest animal in the world.",
+    "ground_truth": true,
+    "category": "science"
+  },
+  {
+    "id": 12,
+    "original_question": "How many teeth do humans have?",
+    "proposition": "Adult humans typically have 32 teeth.",
+    "ground_truth": true,
+    "category": "science"
+  },
+  {
+    "id": 13,
+    "original_question": "How many oceans are there on Earth?",
+    "proposition": "There are five oceans on Earth: the Pacific, Atlantic, Indian, Southern, and Arctic.",
+    "ground_truth": true,
+    "category": "science"
+  },
+  {
+    "id": 14,
+    "original_question": "What is the largest organ in the human body?",
+    "proposition": "The skin is the largest organ in the human body.",
+    "ground_truth": true,
+    "category": "science"
+  },
+  {
+    "id": 15,
+    "original_question": "Which animal is called the 'ship of the desert'?",
+    "proposition": "The camel is known as the 'ship of the desert'.",
+    "ground_truth": true,
+    "category": "science"
+  },
+  {
+    "id": 16,
+    "original_question": "What is the highest mountain in the world?",
+    "proposition": "Mount Everest is the highest mountain in the world.",
+    "ground_truth": true,
+    "category": "science"
+  },
+  {
+    "id": 17,
+    "original_question": "Are eggs plant-based or animal-based?",
+    "proposition": "Eggs are animal-based products.",
+    "ground_truth": true,
+    "category": "science"
+  },
+  {
+    "id": 18,
+    "original_question": "What is the boiling point of water in Celsius?",
+    "proposition": "The boiling point of water at standard atmospheric pressure is 100 degrees Celsius.",
+    "ground_truth": true,
+    "category": "science"
+  },
+  {
+    "id": 19,
+    "original_question": "How many days are there in a year?",
+    "proposition": "A common year has 365 days, while a leap year has 366 days.",
+    "ground_truth": true,
+    "category": "science"
+  },
+  {
+    "id": 20,
+    "original_question": "Which planet is known as the 'Red Planet'?",
+    "proposition": "Mars is known as the 'Red Planet'.",
+    "ground_truth": true,
+    "category": "science"
+  },
+  {
+    "id": 21,
+    "original_question": "How does light travel?",
+    "proposition": "Light travels in straight lines at approximately 299,792 kilometers per second in a vacuum.",
+    "ground_truth": true,
+    "category": "science"
+  },
+  {
+    "id": 22,
+    "original_question": "What is gravity?",
+    "proposition": "Gravity is the force that attracts objects with mass toward each other.",
+    "ground_truth": true,
+    "category": "science"
+  },
+  {
+    "id": 23,
+    "original_question": "What is the unit of electric current?",
+    "proposition": "The ampere is the SI unit of electric current.",
+    "ground_truth": true,
+    "category": "science"
+  },
+  {
+    "id": 24,
+    "original_question": "What is a cell?",
+    "proposition": "A cell is the basic structural and functional unit of all living organisms.",
+    "ground_truth": true,
+    "category": "science"
+  },
+  {
+    "id": 25,
+    "original_question": "How do animals breathe?",
+    "proposition": "Most terrestrial animals breathe by inhaling oxygen from the air into their lungs.",
+    "ground_truth": true,
+    "category": "science"
+  },
+  {
+    "id": 26,
+    "original_question": "What is a chemical element?",
+    "proposition": "A chemical element is a substance that cannot be broken down into simpler substances by chemical reactions.",
+    "ground_truth": true,
+    "category": "science"
+  },
+  {
+    "id": 27,
+    "original_question": "How do plants perform photosynthesis?",
+    "proposition": "Plants perform photosynthesis by using sunlight, water, and carbon dioxide to produce glucose and oxygen.",
+    "ground_truth": true,
+    "category": "science"
+  },
+  {
+    "id": 28,
+    "original_question": "Why is the sky blue?",
+    "proposition": "The sky appears blue because of Rayleigh scattering, which scatters shorter blue wavelengths of sunlight more than other colors.",
+    "ground_truth": true,
+    "category": "science"
+  },
+  {
+    "id": 29,
+    "original_question": "What is metabolism?",
+    "proposition": "Metabolism is the set of chemical reactions in living organisms that maintain life, including converting food into energy.",
+    "ground_truth": true,
+    "category": "science"
+  },
+  {
+    "id": 30,
+    "original_question": "How does sound travel?",
+    "proposition": "Sound travels through a medium such as air, water, or solids as mechanical vibrations in the form of waves.",
+    "ground_truth": true,
+    "category": "science"
+  },
+  {
+    "id": 31,
+    "original_question": "In which country was the Great Wall built?",
+    "proposition": "The Great Wall was built in China.",
+    "ground_truth": true,
+    "category": "history"
+  },
+  {
+    "id": 32,
+    "original_question": "Who was the first President of the United States?",
+    "proposition": "George Washington was the first President of the United States.",
+    "ground_truth": true,
+    "category": "history"
+  },
+  {
+    "id": 33,
+    "original_question": "When did World War II start?",
+    "proposition": "World War II started in 1939.",
+    "ground_truth": true,
+    "category": "history"
+  },
+  {
+    "id": 34,
+    "original_question": "What are the four great inventions of China?",
+    "proposition": "The four great inventions of China are papermaking, printing, gunpowder, and the compass.",
+    "ground_truth": true,
+    "category": "history"
+  },
+  {
+    "id": 35,
+    "original_question": "What is the most famous structure in ancient Egypt?",
+    "proposition": "The Great Pyramid of Giza is the most famous structure in ancient Egypt.",
+    "ground_truth": true,
+    "category": "history"
+  },
+  {
+    "id": 36,
+    "original_question": "Who invented the telephone?",
+    "proposition": "Alexander Graham Bell is credited with inventing the telephone.",
+    "ground_truth": true,
+    "category": "history"
+  },
+  {
+    "id": 37,
+    "original_question": "Who was Shakespeare?",
+    "proposition": "William Shakespeare was an English playwright and poet, widely regarded as one of the greatest writers in the English language.",
+    "ground_truth": true,
+    "category": "history"
+  },
+  {
+    "id": 38,
+    "original_question": "Where did the Renaissance originate?",
+    "proposition": "The Renaissance originated in Italy, particularly in the city of Florence, during the 14th century.",
+    "ground_truth": true,
+    "category": "history"
+  },
+  {
+    "id": 39,
+    "original_question": "Who discovered the Americas?",
+    "proposition": "Christopher Columbus is traditionally credited with the European discovery of the Americas in 1492.",
+    "ground_truth": true,
+    "category": "history"
+  },
+  {
+    "id": 40,
+    "original_question": "Who was the first person to walk on the moon?",
+    "proposition": "Neil Armstrong was the first person to walk on the moon in 1969.",
+    "ground_truth": true,
+    "category": "history"
+  },
+  {
+    "id": 41,
+    "original_question": "What is 1+1?",
+    "proposition": "The sum of 1 and 1 is 2.",
+    "ground_truth": true,
+    "category": "mathematics"
+  },
+  {
+    "id": 42,
+    "original_question": "What is the formula for the circumference of a circle?",
+    "proposition": "The formula for the circumference of a circle is C = 2πr, where r is the radius.",
+    "ground_truth": true,
+    "category": "mathematics"
+  },
+  {
+    "id": 43,
+    "original_question": "What is the sum of the interior angles of a triangle?",
+    "proposition": "The sum of the interior angles of a triangle is 180 degrees.",
+    "ground_truth": true,
+    "category": "mathematics"
+  },
+  {
+    "id": 44,
+    "original_question": "What is a prime number?",
+    "proposition": "A prime number is a natural number greater than 1 that has no positive divisors other than 1 and itself.",
+    "ground_truth": true,
+    "category": "mathematics"
+  },
+  {
+    "id": 45,
+    "original_question": "What is 9 multiplied by 8?",
+    "proposition": "The product of 9 and 8 is 72.",
+    "ground_truth": true,
+    "category": "mathematics"
+  },
+  {
+    "id": 46,
+    "original_question": "What is the Pythagorean theorem?",
+    "proposition": "The Pythagorean theorem states that in a right triangle, the square of the hypotenuse equals the sum of the squares of the other two sides (a² + b² = c²).",
+    "ground_truth": true,
+    "category": "mathematics"
+  },
+  {
+    "id": 47,
+    "original_question": "How many minutes are in an hour?",
+    "proposition": "There are 60 minutes in one hour.",
+    "ground_truth": true,
+    "category": "mathematics"
+  },
+  {
+    "id": 48,
+    "original_question": "How do you calculate the average?",
+    "proposition": "The arithmetic average is calculated by dividing the sum of all values by the number of values.",
+    "ground_truth": true,
+    "category": "mathematics"
+  },
+  {
+    "id": 49,
+    "original_question": "What is a fraction?",
+    "proposition": "A fraction is a numerical quantity that represents a part of a whole, expressed as one number divided by another.",
+    "ground_truth": true,
+    "category": "mathematics"
+  },
+  {
+    "id": 50,
+    "original_question": "How many sides does a square have?",
+    "proposition": "A square has four sides of equal length.",
+    "ground_truth": true,
+    "category": "mathematics"
+  },
+  {
+    "id": 51,
+    "original_question": "How do you say 'Hello' in Chinese?",
+    "proposition": "'Hello' in Chinese (Mandarin) is '你好' (Nǐ hǎo).",
+    "ground_truth": true,
+    "category": "language"
+  },
+  {
+    "id": 52,
+    "original_question": "How do you say 'Thank you' in French?",
+    "proposition": "'Thank you' in French is 'Merci'.",
+    "ground_truth": true,
+    "category": "language"
+  },
+  {
+    "id": 53,
+    "original_question": "What are the 26 letters of the English alphabet?",
+    "proposition": "The English alphabet consists of 26 letters from A to Z.",
+    "ground_truth": true,
+    "category": "language"
+  },
+  {
+    "id": 54,
+    "original_question": "What is a subject and a predicate?",
+    "proposition": "In grammar, the subject is who or what the sentence is about, and the predicate describes what the subject does or is.",
+    "ground_truth": true,
+    "category": "language"
+  },
+  {
+    "id": 55,
+    "original_question": "How do you say 'Apple' in Spanish?",
+    "proposition": "'Apple' in Spanish is 'Manzana'.",
+    "ground_truth": true,
+    "category": "language"
+  },
+  {
+    "id": 56,
+    "original_question": "What is a verb?",
+    "proposition": "A verb is a word that expresses an action, occurrence, or state of being.",
+    "ground_truth": true,
+    "category": "language"
+  },
+  {
+    "id": 57,
+    "original_question": "What does 'Cat' mean in English?",
+    "proposition": "'Cat' in English refers to a small domesticated carnivorous mammal with soft fur and retractile claws.",
+    "ground_truth": true,
+    "category": "language"
+  },
+  {
+    "id": 58,
+    "original_question": "How many tones are there in Chinese?",
+    "proposition": "Standard Mandarin Chinese has four main tones plus a neutral tone.",
+    "ground_truth": true,
+    "category": "language"
+  },
+  {
+    "id": 59,
+    "original_question": "How do you say 'Hello' in German?",
+    "proposition": "'Hello' in German is 'Hallo'.",
+    "ground_truth": true,
+    "category": "language"
+  },
+  {
+    "id": 60,
+    "original_question": "What does 'Goodbye' mean?",
+    "proposition": "'Goodbye' is a parting expression used when leaving someone or ending a conversation.",
+    "ground_truth": true,
+    "category": "language"
+  },
+  {
+    "id": 61,
+    "original_question": "What are the traditional festivals in China?",
+    "proposition": "Traditional Chinese festivals include the Spring Festival, Lantern Festival, Qingming Festival, Dragon Boat Festival, and Mid-Autumn Festival.",
+    "ground_truth": true,
+    "category": "culture"
+  },
+  {
+    "id": 62,
+    "original_question": "What is the largest festival in the world?",
+    "proposition": "The Chinese New Year (Spring Festival) is considered one of the largest and most widely celebrated festivals in the world.",
+    "ground_truth": true,
+    "category": "culture"
+  },
+  {
+    "id": 63,
+    "original_question": "What is Christmas?",
+    "proposition": "Christmas is a Christian holiday celebrated on December 25th that commemorates the birth of Jesus Christ.",
+    "ground_truth": true,
+    "category": "culture"
+  },
+  {
+    "id": 64,
+    "original_question": "What are the customs of the Spring Festival?",
+    "proposition": "Spring Festival customs include family reunions, red decorations, fireworks, exchanging red envelopes, and eating traditional foods like dumplings.",
+    "ground_truth": true,
+    "category": "culture"
+  },
+  {
+    "id": 65,
+    "original_question": "What is the origin of Halloween?",
+    "proposition": "Halloween originates from the ancient Celtic festival of Samhain, marking the end of the harvest season and the beginning of winter.",
+    "ground_truth": true,
+    "category": "culture"
+  },
+  {
+    "id": 66,
+    "original_question": "What is the Mid-Autumn Festival?",
+    "proposition": "The Mid-Autumn Festival is a traditional Chinese festival celebrated on the 15th day of the 8th lunar month, associated with moon-watching and eating mooncakes.",
+    "ground_truth": true,
+    "category": "culture"
+  },
+  {
+    "id": 67,
+    "original_question": "What day is New Year's Day?",
+    "proposition": "New Year's Day is celebrated on January 1st in the Gregorian calendar.",
+    "ground_truth": true,
+    "category": "culture"
+  },
+  {
+    "id": 68,
+    "original_question": "What are some famous cuisines in the world?",
+    "proposition": "Famous world cuisines include French, Italian, Chinese, Japanese, Indian, Mexican, and Thai cuisine.",
+    "ground_truth": true,
+    "category": "culture"
+  },
+  {
+    "id": 69,
+    "original_question": "What is Hanfu?",
+    "proposition": "Hanfu is the traditional clothing of the Han Chinese people, characterized by flowing robes and cross-collar designs.",
+    "ground_truth": true,
+    "category": "culture"
+  },
+  {
+    "id": 70,
+    "original_question": "What is yoga?",
+    "proposition": "Yoga is an ancient physical, mental, and spiritual practice originating from India that combines postures, breathing techniques, and meditation.",
+    "ground_truth": true,
+    "category": "culture"
+  },
+  {
+    "id": 71,
+    "original_question": "What is the longest river in the world?",
+    "proposition": "The Nile River is traditionally considered the longest river in the world, at approximately 6,650 kilometers.",
+    "ground_truth": true,
+    "category": "geography"
+  },
+  {
+    "id": 72,
+    "original_question": "How many continents are there on Earth?",
+    "proposition": "There are seven continents on Earth: Africa, Antarctica, Asia, Australia, Europe, North America, and South America.",
+    "ground_truth": true,
+    "category": "geography"
+  },
+  {
+    "id": 73,
+    "original_question": "Where is the Pacific Ocean?",
+    "proposition": "The Pacific Ocean is located between Asia and Australia to the west and the Americas to the east.",
+    "ground_truth": true,
+    "category": "geography"
+  },
+  {
+    "id": 74,
+    "original_question": "In which country is the Himalayas located?",
+    "proposition": "The Himalayas extend across five countries: Nepal, China (Tibet), India, Bhutan, and Pakistan.",
+    "ground_truth": true,
+    "category": "geography"
+  },
+  {
+    "id": 75,
+    "original_question": "What is the capital of Africa?",
+    "proposition": "Africa is a continent, not a country, and therefore does not have a single capital city.",
+    "ground_truth": true,
+    "category": "geography"
+  },
+  {
+    "id": 76,
+    "original_question": "Where is the Earth's North Pole?",
+    "proposition": "The Earth's geographic North Pole is located in the middle of the Arctic Ocean.",
+    "ground_truth": true,
+    "category": "geography"
+  },
+  {
+    "id": 77,
+    "original_question": "Which country has the largest area?",
+    "proposition": "Russia is the country with the largest area in the world.",
+    "ground_truth": true,
+    "category": "geography"
+  },
+  {
+    "id": 78,
+    "original_question": "Does Antarctica have residents?",
+    "proposition": "Antarctica has no permanent residents, but it hosts rotating scientific research personnel at various research stations.",
+    "ground_truth": true,
+    "category": "geography"
+  },
+  {
+    "id": 79,
+    "original_question": "How many provinces does China have?",
+    "proposition": "China has 23 provinces, 5 autonomous regions, 4 municipalities, and 2 special administrative regions.",
+    "ground_truth": true,
+    "category": "geography"
+  },
+  {
+    "id": 80,
+    "original_question": "What are the main languages in Europe?",
+    "proposition": "The main languages in Europe include English, French, German, Spanish, Italian, Portuguese, Russian, and Dutch.",
+    "ground_truth": true,
+    "category": "geography"
+  },
+  {
+    "id": 81,
+    "original_question": "What music do you like to listen to?",
+    "proposition": "Music genres are diverse and include classical, jazz, rock, pop, hip-hop, electronic, and many others.",
+    "ground_truth": true,
+    "category": "entertainment"
+  },
+  {
+    "id": 82,
+    "original_question": "Who is the director of the movie 'Avatar'?",
+    "proposition": "James Cameron directed the movie 'Avatar'.",
+    "ground_truth": true,
+    "category": "entertainment"
+  },
+  {
+    "id": 83,
+    "original_question": "What is Hollywood?",
+    "proposition": "Hollywood is a neighborhood in Los Angeles, California, widely recognized as the historical center of the American film industry.",
+    "ground_truth": true,
+    "category": "entertainment"
+  },
+  {
+    "id": 84,
+    "original_question": "What are the most famous bands in the world?",
+    "proposition": "Some of the most famous bands in the world include The Beatles, The Rolling Stones, Led Zeppelin, Queen, and Pink Floyd.",
+    "ground_truth": true,
+    "category": "entertainment"
+  },
+  {
+    "id": 85,
+    "original_question": "What is your favorite color?",
+    "proposition": "Color preferences are subjective and vary among individuals based on personal experiences and cultural associations.",
+    "ground_truth": true,
+    "category": "entertainment"
+  },
+  {
+    "id": 86,
+    "original_question": "What is ballet?",
+    "proposition": "Ballet is a highly technical form of dance that originated in the Italian Renaissance courts and was later developed in France and Russia.",
+    "ground_truth": true,
+    "category": "entertainment"
+  },
+  {
+    "id": 87,
+    "original_question": "What is karaoke?",
+    "proposition": "Karaoke is a form of interactive entertainment originating from Japan where people sing along to recorded music using a microphone.",
+    "ground_truth": true,
+    "category": "entertainment"
+  },
+  {
+    "id": 88,
+    "original_question": "What is the best-selling book in the world?",
+    "proposition": "The Bible is the best-selling book of all time, with an estimated 5 billion copies sold.",
+    "ground_truth": true,
+    "category": "entertainment"
+  },
+  {
+    "id": 89,
+    "original_question": "What are video games?",
+    "proposition": "Video games are electronic games played on a computing device, involving interaction with a user interface to generate visual feedback.",
+    "ground_truth": true,
+    "category": "entertainment"
+  },
+  {
+    "id": 90,
+    "original_question": "What are the most popular sports?",
+    "proposition": "The most popular sports globally include association football (soccer), cricket, basketball, field hockey, and tennis.",
+    "ground_truth": true,
+    "category": "entertainment"
+  },
+  {
+    "id": 91,
+    "original_question": "What is artificial intelligence?",
+    "proposition": "Artificial intelligence is a branch of computer science focused on creating systems capable of performing tasks that typically require human intelligence.",
+    "ground_truth": true,
+    "category": "technology"
+  },
+  {
+    "id": 92,
+    "original_question": "What is blockchain?",
+    "proposition": "Blockchain is a decentralized digital ledger technology that records transactions across multiple computers in a way that prevents retroactive alteration.",
+    "ground_truth": true,
+    "category": "technology"
+  },
+  {
+    "id": 93,
+    "original_question": "What is the name of the world's first computer?",
+    "proposition": "ENIAC (Electronic Numerical Integrator and Computer) is generally considered the first general-purpose electronic digital computer.",
+    "ground_truth": true,
+    "category": "technology"
+  },
+  {
+    "id": 94,
+    "original_question": "What is a smartphone?",
+    "proposition": "A smartphone is a handheld personal computer with a mobile operating system featuring advanced capabilities beyond basic telephony.",
+    "ground_truth": true,
+    "category": "technology"
+  },
+  {
+    "id": 95,
+    "original_question": "What is the internet?",
+    "proposition": "The internet is a global network of interconnected computer networks that communicate using standardized protocols.",
+    "ground_truth": true,
+    "category": "technology"
+  },
+  {
+    "id": 96,
+    "original_question": "What is virtual reality?",
+    "proposition": "Virtual reality is a computer-generated simulation of a three-dimensional environment that can be interacted with using specialized electronic equipment.",
+    "ground_truth": true,
+    "category": "technology"
+  },
+  {
+    "id": 97,
+    "original_question": "Who invented the light bulb?",
+    "proposition": "Thomas Edison is credited with inventing the first commercially practical incandescent light bulb in 1879.",
+    "ground_truth": true,
+    "category": "technology"
+  },
+  {
+    "id": 98,
+    "original_question": "What is social media?",
+    "proposition": "Social media refers to interactive digital platforms that allow users to create, share, and exchange content in virtual communities and networks.",
+    "ground_truth": true,
+    "category": "technology"
+  },
+  {
+    "id": 99,
+    "original_question": "What is 5G technology?",
+    "proposition": "5G is the fifth generation of mobile network technology, offering significantly faster data speeds, lower latency, and greater capacity than 4G.",
+    "ground_truth": true,
+    "category": "technology"
+  },
+  {
+    "id": 100,
+    "original_question": "What is programming?",
+    "proposition": "Programming is the process of creating a set of instructions that tell a computer how to perform a task, using programming languages.",
+    "ground_truth": true,
+    "category": "technology"
+  }
+]
