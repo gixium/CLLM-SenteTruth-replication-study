@@ -1,0 +1,82 @@
+Modello Eq.5 | N=10 THRESHOLD=6
+---------------------------------------------------------------------------
+Split   Modello       Ds   Cfg    Acc%      q*  Note
+---------------------------------------------------------------------------
+60/40   GPT-4o-mini   MIX  C1   100.0%         N/A  C-LLM irraggiungibile
+60/40   GPT-4o-mini   MIX  C2    67.0% [V]   0.866  ASTRAEA vince se q* >= 0.866
+60/40   GPT-4o-mini   MIX  C3     1.0% [V]   0.251  ASTRAEA vince (q* <= 0.5 = minimo razionale)
+60/40   GPT-4o-mini   MIX  C4    99.0%         N/A  C-LLM irraggiungibile
+60/40   GPT-4o-mini   PRO  C1   100.0%         N/A  C-LLM irraggiungibile
+60/40   GPT-4o-mini   PRO  C2     3.3% [V]   0.334  ASTRAEA vince (q* <= 0.5 = minimo razionale)
+60/40   GPT-4o-mini   PRO  C3     1.7% [V]   0.284  ASTRAEA vince (q* <= 0.5 = minimo razionale)
+60/40   GPT-4o-mini   PRO  C4   100.0%         N/A  C-LLM irraggiungibile
+60/40   Gemini        MIX  C1   100.0%         N/A  C-LLM irraggiungibile
+60/40   Gemini        MIX  C2    58.0% [V]   0.805  ASTRAEA vince se q* >= 0.805
+60/40   Gemini        MIX  C3     8.0% [V]   0.419  ASTRAEA vince (q* <= 0.5 = minimo razionale)
+60/40   Gemini        MIX  C4   100.0%         N/A  C-LLM irraggiungibile
+60/40   Gemini        PRO  C1   100.0%         N/A  C-LLM irraggiungibile
+60/40   Gemini        PRO  C2    28.3% [V]   0.609  ASTRAEA vince (q* <= 0.8 = standard operativo)
+60/40   Gemini        PRO  C3    11.7% [V]   0.465  ASTRAEA vince (q* <= 0.5 = minimo razionale)
+60/40   Gemini        PRO  C4   100.0%         N/A  C-LLM irraggiungibile
+60/40   DS-Chat       MIX  C1    50.0% [V]   0.753  ASTRAEA vince (q* <= 0.8 = standard operativo)
+60/40   DS-Chat       MIX  C2     1.0% [V]   0.251  ASTRAEA vince (q* <= 0.5 = minimo razionale)
+60/40   DS-Chat       MIX  C3     1.0% [V]   0.251  ASTRAEA vince (q* <= 0.5 = minimo razionale)
+60/40   DS-Chat       MIX  C4     3.0% [V]   0.326  ASTRAEA vince (q* <= 0.5 = minimo razionale)
+60/40   DS-Chat       PRO  C1    40.0% [V]   0.688  ASTRAEA vince (q* <= 0.8 = standard operativo)
+60/40   DS-Chat       PRO  C2     0.0% [V]   0.000  ASTRAEA vince (q* <= 0.5 = minimo razionale)
+60/40   DS-Chat       PRO  C3     0.0% [V]   0.000  ASTRAEA vince (q* <= 0.5 = minimo razionale)
+60/40   DS-Chat       PRO  C4     0.0% [V]   0.000  ASTRAEA vince (q* <= 0.5 = minimo razionale)
+60/40   DS-Reasoner   MIX  C1     0.0% [V]   0.000  ASTRAEA vince (q* <= 0.5 = minimo razionale)
+60/40   DS-Reasoner   MIX  C2     2.0% [V]   0.295  ASTRAEA vince (q* <= 0.5 = minimo razionale)
+60/40   DS-Reasoner   MIX  C3     0.0% [V]   0.000  ASTRAEA vince (q* <= 0.5 = minimo razionale)
+60/40   DS-Reasoner   MIX  C4     1.0% [V]   0.251  ASTRAEA vince (q* <= 0.5 = minimo razionale)
+60/40   DS-Reasoner   PRO  C1    15.0% [V]   0.500  ASTRAEA vince (q* <= 0.5 = minimo razionale)
+60/40   DS-Reasoner   PRO  C2     8.3% [V]   0.423  ASTRAEA vince (q* <= 0.5 = minimo razionale)
+60/40   DS-Reasoner   PRO  C3     5.0% [V]   0.371  ASTRAEA vince (q* <= 0.5 = minimo razionale)
+60/40   DS-Reasoner   PRO  C4     6.7% [V]   0.400  ASTRAEA vince (q* <= 0.5 = minimo razionale)
+70/30   GPT-4o-mini   MIX  C1   100.0%         N/A  C-LLM irraggiungibile
+70/30   GPT-4o-mini   MIX  C2   100.0%         N/A  C-LLM irraggiungibile
+70/30   GPT-4o-mini   MIX  C3   100.0%         N/A  C-LLM irraggiungibile
+70/30   GPT-4o-mini   MIX  C4   100.0%         N/A  C-LLM irraggiungibile
+70/30   GPT-4o-mini   PRO  C1   100.0%         N/A  C-LLM irraggiungibile
+70/30   GPT-4o-mini   PRO  C2   100.0%         N/A  C-LLM irraggiungibile
+70/30   GPT-4o-mini   PRO  C3    56.7% [V]   0.682  ASTRAEA vince (q* <= 0.8 = standard operativo)
+70/30   GPT-4o-mini   PRO  C4   100.0%         N/A  C-LLM irraggiungibile
+70/30   Gemini        MIX  C1   100.0%         N/A  C-LLM irraggiungibile
+70/30   Gemini        MIX  C2   100.0%         N/A  C-LLM irraggiungibile
+70/30   Gemini        MIX  C3   100.0%         N/A  C-LLM irraggiungibile
+70/30   Gemini        MIX  C4   100.0%         N/A  C-LLM irraggiungibile
+70/30   Gemini        PRO  C1   100.0%         N/A  C-LLM irraggiungibile
+70/30   Gemini        PRO  C2   100.0%         N/A  C-LLM irraggiungibile
+70/30   Gemini        PRO  C3   100.0%         N/A  C-LLM irraggiungibile
+70/30   Gemini        PRO  C4   100.0%         N/A  C-LLM irraggiungibile
+70/30   DS-Chat       MIX  C1   100.0%         N/A  C-LLM irraggiungibile
+70/30   DS-Chat       MIX  C2    67.0% [V]   0.742  ASTRAEA vince (q* <= 0.8 = standard operativo)
+70/30   DS-Chat       MIX  C3    43.0% [V]   0.607  ASTRAEA vince (q* <= 0.8 = standard operativo)
+70/30   DS-Chat       MIX  C4    53.0% [V]   0.662  ASTRAEA vince (q* <= 0.8 = standard operativo)
+70/30   DS-Chat       PRO  C1   100.0%         N/A  C-LLM irraggiungibile
+70/30   DS-Chat       PRO  C2    13.3% [V]   0.414  ASTRAEA vince (q* <= 0.5 = minimo razionale)
+70/30   DS-Chat       PRO  C3     0.0% [V]   0.000  ASTRAEA vince (q* <= 0.5 = minimo razionale)
+70/30   DS-Chat       PRO  C4    61.7% [V]   0.711  ASTRAEA vince (q* <= 0.8 = standard operativo)
+70/30   DS-Reasoner   MIX  C1    17.0% [V]   0.444  ASTRAEA vince (q* <= 0.5 = minimo razionale)
+70/30   DS-Reasoner   MIX  C2     8.0% [V]   0.359  ASTRAEA vince (q* <= 0.5 = minimo razionale)
+70/30   DS-Reasoner   MIX  C3    59.0% [V]   0.695  ASTRAEA vince (q* <= 0.8 = standard operativo)
+70/30   DS-Reasoner   MIX  C4    77.0% [V]   0.808  ASTRAEA vince se q* >= 0.808
+70/30   DS-Reasoner   PRO  C1   100.0%         N/A  C-LLM irraggiungibile
+70/30   DS-Reasoner   PRO  C2   100.0%         N/A  C-LLM irraggiungibile
+70/30   DS-Reasoner   PRO  C3    53.3% [V]   0.663  ASTRAEA vince (q* <= 0.8 = standard operativo)
+70/30   DS-Reasoner   PRO  C4    60.0% [V]   0.701  ASTRAEA vince (q* <= 0.8 = standard operativo)
+
+===========================================================================
+RIEPILOGO STATISTICO
+===========================================================================
+Configurazioni totali      : 64
+  - Robuste (Acc >= 95%)   : 27
+  - Vulnerabili (Acc < 95%): 37
+
+Dettaglio Vulnerabili:
+  - q* <= 0.5 (Min razionale) : 23/37
+  - q* <= 0.8 (Min paper)     : 34/37
+
+Distribuzione q* (n=37):
+  min=0.000 | median=0.419 | max=0.866 | mean=0.433
