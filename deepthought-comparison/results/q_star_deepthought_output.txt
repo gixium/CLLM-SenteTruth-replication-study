@@ -1,0 +1,68 @@
+DeepThought q* (empirical interpolation) | N=10
+-------------------------------------------------------------------------------------
+Split   Modello       Ds   Cfg    Acc%      q*  Note
+-------------------------------------------------------------------------------------
+60-40   GPT-4o-mini   MIX  C1   100.0%         N/A  C-LLM irraggiungibile
+60-40   GPT-4o-mini   MIX  C2    67.0% [V]   0.870  DT vince se q* >= 0.870
+60-40   GPT-4o-mini   MIX  C3     1.0% [V]   0.651  DT vince (q* <= 0.8 = standard operativo)
+60-40   GPT-4o-mini   MIX  C4    99.0%         N/A  C-LLM irraggiungibile
+60-40   GPT-4o-mini   PRO  C1   100.0%         N/A  C-LLM irraggiungibile
+60-40   GPT-4o-mini   PRO  C2     3.3% [V]   0.630  DT vince (q* <= 0.8 = standard operativo)
+60-40   GPT-4o-mini   PRO  C3     1.7% [V]   0.609  DT vince (q* <= 0.8 = standard operativo)
+60-40   GPT-4o-mini   PRO  C4   100.0%         N/A  C-LLM irraggiungibile
+60-40   Gemini        MIX  C1   100.0%         N/A  C-LLM irraggiungibile
+60-40   Gemini        MIX  C2    58.0% [V]   0.853  DT vince se q* >= 0.853
+60-40   Gemini        MIX  C3     8.0% [V]   0.742  DT vince (q* <= 0.8 = standard operativo)
+60-40   Gemini        MIX  C4   100.0%         N/A  C-LLM irraggiungibile
+60-40   Gemini        PRO  C1   100.0%         N/A  C-LLM irraggiungibile
+60-40   Gemini        PRO  C2    28.3% [V]   0.764  DT vince (q* <= 0.8 = standard operativo)
+60-40   Gemini        PRO  C3    11.7% [V]   0.710  DT vince (q* <= 0.8 = standard operativo)
+60-40   Gemini        PRO  C4   100.0%         N/A  C-LLM irraggiungibile
+60-40   DS-Chat       MIX  C1    50.0% [V]   0.832  DT vince se q* >= 0.832
+60-40   DS-Chat       MIX  C2     1.0% [V]   0.651  DT vince (q* <= 0.8 = standard operativo)
+60-40   DS-Chat       MIX  C3     1.0% [V]   0.651  DT vince (q* <= 0.8 = standard operativo)
+60-40   DS-Chat       MIX  C4     3.0% [V]   0.702  DT vince (q* <= 0.8 = standard operativo)
+60-40   DS-Chat       PRO  C1    40.0% [V]   0.786  DT vince (q* <= 0.8 = standard operativo)
+60-40   DS-Chat       PRO  C2     0.0% [V]   0.000  DT vince (q* ~ 0 = triviale)
+60-40   DS-Chat       PRO  C3     0.0% [V]   0.000  DT vince (q* ~ 0 = triviale)
+60-40   DS-Chat       PRO  C4     0.0% [V]   0.000  DT vince (q* ~ 0 = triviale)
+60-40   DS-Reasoner   MIX  C1     0.0% [V]   0.000  DT vince (q* ~ 0 = triviale)
+60-40   DS-Reasoner   MIX  C2     2.0% [V]   0.672  DT vince (q* <= 0.8 = standard operativo)
+60-40   DS-Reasoner   MIX  C3     0.0% [V]   0.000  DT vince (q* ~ 0 = triviale)
+60-40   DS-Reasoner   MIX  C4     1.0% [V]   0.651  DT vince (q* <= 0.8 = standard operativo)
+60-40   DS-Reasoner   PRO  C1    15.0% [V]   0.719  DT vince (q* <= 0.8 = standard operativo)
+60-40   DS-Reasoner   PRO  C2     8.3% [V]   0.700  DT vince (q* <= 0.8 = standard operativo)
+60-40   DS-Reasoner   PRO  C3     5.0% [V]   0.655  DT vince (q* <= 0.8 = standard operativo)
+60-40   DS-Reasoner   PRO  C4     6.7% [V]   0.686  DT vince (q* <= 0.8 = standard operativo)
+70-30   GPT-4o-mini   MIX  C1   100.0%         N/A  C-LLM irraggiungibile
+70-30   GPT-4o-mini   MIX  C2   100.0%         N/A  C-LLM irraggiungibile
+70-30   GPT-4o-mini   MIX  C3   100.0%         N/A  C-LLM irraggiungibile
+70-30   GPT-4o-mini   MIX  C4   100.0%         N/A  C-LLM irraggiungibile
+70-30   GPT-4o-mini   PRO  C1   100.0%         N/A  C-LLM irraggiungibile
+70-30   GPT-4o-mini   PRO  C2   100.0%         N/A  C-LLM irraggiungibile
+70-30   GPT-4o-mini   PRO  C3    56.7% [V]   0.697  DT vince (q* <= 0.8 = standard operativo)
+70-30   GPT-4o-mini   PRO  C4   100.0%         N/A  C-LLM irraggiungibile
+70-30   Gemini        MIX  C1   100.0%         N/A  C-LLM irraggiungibile
+70-30   Gemini        MIX  C2   100.0%         N/A  C-LLM irraggiungibile
+70-30   Gemini        MIX  C3   100.0%         N/A  C-LLM irraggiungibile
+70-30   Gemini        MIX  C4   100.0%         N/A  C-LLM irraggiungibile
+70-30   Gemini        PRO  C1   100.0%         N/A  C-LLM irraggiungibile
+70-30   Gemini        PRO  C2   100.0%         N/A  C-LLM irraggiungibile
+70-30   Gemini        PRO  C3   100.0%         N/A  C-LLM irraggiungibile
+70-30   Gemini        PRO  C4   100.0%         N/A  C-LLM irraggiungibile
+70-30   DS-Chat       MIX  C1   100.0%         N/A  C-LLM irraggiungibile
+70-30   DS-Chat       MIX  C2    67.0% [V]   0.730  DT vince (q* <= 0.8 = standard operativo)
+70-30   DS-Chat       MIX  C3    43.0% [V]   0.688  DT vince (q* <= 0.8 = standard operativo)
+70-30   DS-Chat       MIX  C4    53.0% [V]   0.710  DT vince (q* <= 0.8 = standard operativo)
+70-30   DS-Chat       PRO  C1   100.0%         N/A  C-LLM irraggiungibile
+70-30   DS-Chat       PRO  C2    13.3% [V]   0.608  DT vince (q* <= 0.8 = standard operativo)
+70-30   DS-Chat       PRO  C3     0.0% [V]   0.000  DT vince (q* ~ 0 = triviale)
+70-30   DS-Chat       PRO  C4    61.7% [V]   0.708  DT vince (q* <= 0.8 = standard operativo)
+70-30   DS-Reasoner   MIX  C1    17.0% [V]   0.645  DT vince (q* <= 0.8 = standard operativo)
+70-30   DS-Reasoner   MIX  C2     8.0% [V]   0.616  DT vince (q* <= 0.8 = standard operativo)
+70-30   DS-Reasoner   MIX  C3    59.0% [V]   0.719  DT vince (q* <= 0.8 = standard operativo)
+70-30   DS-Reasoner   MIX  C4    77.0% [V]   0.746  DT vince (q* <= 0.8 = standard operativo)
+70-30   DS-Reasoner   PRO  C1   100.0%         N/A  C-LLM irraggiungibile
+70-30   DS-Reasoner   PRO  C2   100.0%         N/A  C-LLM irraggiungibile
+70-30   DS-Reasoner   PRO  C3    53.3% [V]   0.689  DT vince (q* <= 0.8 = standard operativo)
+70-30   DS-Reasoner   PRO  C4    60.0% [V]   0.704  DT vince (q* <= 0.8 = standard operativo)

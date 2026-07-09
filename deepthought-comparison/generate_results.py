@@ -17,6 +17,7 @@ import glob
 import os
 import re
 import sys
+import subprocess
 from collections import defaultdict
 
 # ---------------------------------------------------------------------------
@@ -46,6 +47,38 @@ except ImportError:
     HAS_MPL = False
     print("WARNING: matplotlib not installed. Charts will be skipped.")
     print("         Install with: pip install matplotlib")
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# CLLM Accuracy Data (for q* analysis)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+Q_MIN_RATIONAL = 0.50
+Q_MIN_PAPER = 0.80
+ACC_ROBUST_THRESHOLD = 95.0
+
+CLLM_TABLE = [
+    # 60/40 split (k=4 adversarial out of 10)
+    ("GPT-4o-mini", "MIX", "60-40", 4, 100.0, 67.0,  1.0, 99.0),
+    ("GPT-4o-mini", "PRO", "60-40", 4, 100.0,  3.3,  1.7, 100.0),
+    ("Gemini",      "MIX", "60-40", 4, 100.0, 58.0,  8.0, 100.0),
+    ("Gemini",      "PRO", "60-40", 4, 100.0, 28.3, 11.7, 100.0),
+    ("DS-Chat",     "MIX", "60-40", 4,  50.0,  1.0,  1.0,  3.0),
+    ("DS-Chat",     "PRO", "60-40", 4,  40.0,  0.0,  0.0,  0.0),
+    ("DS-Reasoner", "MIX", "60-40", 4,   0.0,  2.0,  0.0,  1.0),
+    ("DS-Reasoner", "PRO", "60-40", 4,  15.0,  8.3,  5.0,  6.7),
+    # 70/30 split (k=3 adversarial out of 10)
+    ("GPT-4o-mini", "MIX", "70-30", 3, 100.0, 100.0, 100.0, 100.0),
+    ("GPT-4o-mini", "PRO", "70-30", 3, 100.0, 100.0, 56.7, 100.0),
+    ("Gemini",      "MIX", "70-30", 3, 100.0, 100.0, 100.0, 100.0),
+    ("Gemini",      "PRO", "70-30", 3, 100.0, 100.0, 100.0, 100.0),
+    ("DS-Chat",     "MIX", "70-30", 3, 100.0, 67.0, 43.0, 53.0),
+    ("DS-Chat",     "PRO", "70-30", 3, 100.0, 13.3,  0.0, 61.7),
+    ("DS-Reasoner", "MIX", "70-30", 3,  17.0,  8.0, 59.0, 77.0),
+    ("DS-Reasoner", "PRO", "70-30", 3, 100.0, 100.0, 53.3, 60.0),
+]
+
+CLLM_CONFIGS = ["C1", "C2", "C3", "C4"]
+
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -471,6 +504,160 @@ def write_latex_tables(summaries: list, results_dir: str):
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
+# Empirical q* Analysis
+# ═══════════════════════════════════════════════════════════════════════════════
+
+def build_accuracy_curves(summaries: list) -> dict:
+    """Build empirical curves from the summary data."""
+    curves = {}
+    for s in summaries:
+        key = (s["dataset"], s["split"])
+        if key not in curves:
+            curves[key] = []
+        curves[key].append((s["accuracy"], s["system_accuracy"]))
+    
+    # Sort points for each curve by q
+    for key in curves:
+        curves[key].sort(key=lambda x: x[0])
+    
+    return curves
+
+def find_q_star_from_curve(target_acc: float, curve: list) -> float:
+    """Find q* by linear interpolation on the empirical curve."""
+    if not curve:
+        return None
+        
+    if target_acc <= 0.0:
+        return 0.0
+        
+    # Check bounds
+    if target_acc <= curve[0][1]:
+        return curve[0][0]
+    if target_acc >= curve[-1][1]:
+        return None # Unreachable
+        
+    for i in range(len(curve) - 1):
+        q1, acc1 = curve[i]
+        q2, acc2 = curve[i+1]
+        
+        if acc1 <= target_acc <= acc2:
+            if acc1 == acc2:
+                return q1
+            # Linear interpolation
+            slope = (q2 - q1) / (acc2 - acc1)
+            return q1 + slope * (target_acc - acc1)
+            
+    return None
+
+def run_q_star_analysis(summaries: list, results_dir: str):
+    """Run full empirical q* analysis."""
+    print("\n" + "=" * 60)
+    print("  DeepThought Empirical q* Analysis")
+    print("=" * 60)
+    
+    curves = build_accuracy_curves(summaries)
+    all_results = []
+    
+    for model, ds, split, k, *accs in CLLM_TABLE:
+        for cfg, acc in zip(CLLM_CONFIGS, accs):
+            vulnerable = acc < ACC_ROBUST_THRESHOLD
+            
+            if not vulnerable:
+                all_results.append({
+                    "split": split, "model": model, "ds": ds, "cfg": cfg,
+                    "k": k, "acc": acc, "q_star": None, "vulnerable": False
+                })
+                continue
+                
+            curve = curves.get((ds, split), [])
+            q_star = find_q_star_from_curve(acc, curve)
+            
+            all_results.append({
+                "split": split, "model": model, "ds": ds, "cfg": cfg,
+                "k": k, "acc": acc, "q_star": q_star, "vulnerable": True
+            })
+
+    # Generate Report
+    fpath = os.path.join(results_dir, "q_star_deepthought_output.txt")
+    with open(fpath, "w", encoding="utf-8") as f:
+        f.write(f"DeepThought q* (empirical interpolation) | N=10\n")
+        f.write("-" * 85 + "\n")
+        f.write(f"{'Split':7} {'Modello':13} {'Ds':4} {'Cfg':4} {'Acc%':>6} {'q*':>7}  Note\n")
+        f.write("-" * 85 + "\n")
+        
+        for r in all_results:
+            marker = "[V]" if r["vulnerable"] else "   "
+            if not r["vulnerable"]:
+                note = "C-LLM irraggiungibile"
+                q_str = "N/A"
+            elif r["q_star"] is None:
+                note = "DT irraggiungibile"
+                q_str = "N/A"
+            elif r["q_star"] <= 0.001:
+                note = "DT vince (q* ~ 0 = triviale)"
+                q_str = "0.000"
+            elif r["q_star"] <= Q_MIN_RATIONAL:
+                note = f"DT vince (q* <= {Q_MIN_RATIONAL} = minimo razionale)"
+                q_str = f"{r['q_star']:.3f}"
+            elif r["q_star"] <= Q_MIN_PAPER:
+                note = f"DT vince (q* <= {Q_MIN_PAPER} = standard operativo)"
+                q_str = f"{r['q_star']:.3f}"
+            else:
+                note = f"DT vince se q* >= {r['q_star']:.3f}"
+                q_str = f"{r['q_star']:.3f}"
+                
+            f.write(f"{r['split']:7} {r['model']:13} {r['ds']:4} {r['cfg']:4} {r['acc']:>5.1f}% {marker} {q_str:>7}  {note}\n")
+    
+    print(f"  q* Output -> {fpath}")
+    
+    # Save unique q* values for verification
+    q_stars = set()
+    for r in all_results:
+        if r["q_star"] is not None and r["q_star"] > 0.001:
+            q_stars.add((r["ds"], r["split"], round(r["q_star"], 3)))
+            
+    q_star_file = os.path.join(results_dir, "q_star_values_to_verify.csv")
+    with open(q_star_file, "w") as f:
+        f.write("dataset,split,accuracy\n")
+        for ds, split, q in sorted(list(q_stars)):
+            f.write(f"{ds},{split},{q}\n")
+            
+    print(f"  Unique q* to verify -> {q_star_file}")
+
+
+def run_q_star_verification(results_dir: str):
+    """Run verification experiments for determined q* values."""
+    print("\n" + "=" * 60)
+    print("  DeepThought q* Verification")
+    print("=" * 60)
+    
+    q_star_file = os.path.join(results_dir, "q_star_values_to_verify.csv")
+    if not os.path.exists(q_star_file):
+        print(f"  Error: {q_star_file} not found. Run analysis first.")
+        return
+        
+    sim_script = os.path.join(os.path.dirname(__file__), "deepthought_sim.py")
+    out_dir = os.path.join(results_dir, "raw_verification")
+    os.makedirs(out_dir, exist_ok=True)
+    
+    with open(q_star_file, "r") as f:
+        lines = f.readlines()[1:] # skip header
+        
+    for idx, line in enumerate(lines):
+        ds, split, q_str = line.strip().split(",")
+        q = float(q_str)
+        print(f"  [{idx+1}/{len(lines)}] Verifying: {ds} {split} q*={q}")
+        cmd = [
+            "python3", sim_script,
+            "--dataset", ds, "--split", split, "--accuracy", str(q),
+            "--repetitions", "30", "--output-dir", out_dir
+        ]
+        subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL)
+        
+    print(f"  Verification complete. Raw data saved to {out_dir}")
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
 # Main
 # ═══════════════════════════════════════════════════════════════════════════════
 
@@ -482,10 +669,22 @@ def main():
         "--results-dir", type=str, default="results",
         help="Results directory containing raw/ subdirectory. Default: results",
     )
+    parser.add_argument(
+        "--q-star-analysis", action="store_true",
+        help="Run empirical q* interpolation from curve data",
+    )
+    parser.add_argument(
+        "--verify-q-star", action="store_true",
+        help="Run verification experiments for the found q* values",
+    )
     args = parser.parse_args()
 
     results_dir = args.results_dir
     raw_dir = os.path.join(results_dir, "raw")
+
+    if args.verify_q_star:
+        run_q_star_verification(results_dir)
+        return
 
     print(f"\n{'=' * 60}")
     print(f"  DeepThought Results Generator")
@@ -513,19 +712,12 @@ def main():
     print(f"\n  Writing LaTeX tables...")
     write_latex_tables(summaries, results_dir)
 
+    if args.q_star_analysis:
+        run_q_star_analysis(summaries, results_dir)
+
     print(f"\n{'=' * 60}")
     print(f"  Done! All outputs in: {results_dir}/")
     print(f"{'=' * 60}\n")
-
-    print(f"  {'Dataset':<8} {'Split':<8} {'Acc':<6} {'C-AVG':<8} "
-          f"{'STD':<7} {'Sys.Acc%':<10}")
-    print(f"  {'-' * 50}")
-    for s in sorted(summaries, key=lambda x: (x["split"], x["dataset"],
-                                              x["accuracy"])):
-        print(f"  {s['dataset']:<8} {s['split']:<8} {s['accuracy']:<6.2f} "
-              f"{s['corruption_avg']:<8.2f} {s['corruption_std']:<7.2f} "
-              f"{s['system_accuracy']:<10.2f}")
-    print()
 
 
 if __name__ == "__main__":

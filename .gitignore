@@ -5,6 +5,7 @@
 ~$*
 _*.py
 *.sh
+/_paper-drafts
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
