@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 generate_results.py — DeepThought Results Aggregator & Report Generator
-========================================================================
+
 Aggregates raw simulation CSV files into summary statistics, Excel reports,
 comparison charts (PNG), and LaTeX-ready tables.
 
@@ -48,9 +48,7 @@ except ImportError:
     print("WARNING: matplotlib not installed. Charts will be skipped.")
     print("         Install with: pip install matplotlib")
 
-# ═══════════════════════════════════════════════════════════════════════════════
 # CLLM Accuracy Data (for q* analysis)
-# ═══════════════════════════════════════════════════════════════════════════════
 
 Q_MIN_RATIONAL = 0.50
 Q_MIN_PAPER = 0.80
@@ -81,9 +79,7 @@ CLLM_CONFIGS = ["C1", "C2", "C3", "C4"]
 
 
 
-# ═══════════════════════════════════════════════════════════════════════════════
 # Data Loading
-# ═══════════════════════════════════════════════════════════════════════════════
 
 def load_raw_csvs(raw_dir: str) -> list:
     """Load all raw DT CSV files from the raw directory."""
@@ -123,9 +119,7 @@ def load_reputation_logs(raw_dir: str, dataset: str, split: str,
     return logs
 
 
-# ═══════════════════════════════════════════════════════════════════════════════
 # Aggregation
-# ═══════════════════════════════════════════════════════════════════════════════
 
 def aggregate_results(rows: list) -> list:
     """
@@ -176,9 +170,7 @@ def aggregate_results(rows: list) -> list:
     return summaries
 
 
-# ═══════════════════════════════════════════════════════════════════════════════
 # Summary CSVs
-# ═══════════════════════════════════════════════════════════════════════════════
 
 def write_summary_csvs(summaries: list, results_dir: str):
     """Write summary CSV files grouped by split."""
@@ -203,9 +195,7 @@ def write_summary_csvs(summaries: list, results_dir: str):
         print(f"  Summary CSV -> {fpath}")
 
 
-# ═══════════════════════════════════════════════════════════════════════════════
 # Excel Report
-# ═══════════════════════════════════════════════════════════════════════════════
 
 def write_excel_report(summaries: list, all_rows: list, results_dir: str):
     """Generate a formatted Excel report."""
@@ -310,9 +300,7 @@ def write_excel_report(summaries: list, all_rows: list, results_dir: str):
     print(f"  Excel -> {fpath}")
 
 
-# ═══════════════════════════════════════════════════════════════════════════════
 # Charts
-# ═══════════════════════════════════════════════════════════════════════════════
 
 def generate_charts(summaries: list, raw_dir: str, results_dir: str):
     """Generate comparison charts as PNG files."""
@@ -451,9 +439,7 @@ def generate_charts(summaries: list, raw_dir: str, results_dir: str):
         print(f"  Chart -> {fpath}")
 
 
-# ═══════════════════════════════════════════════════════════════════════════════
 # LaTeX Tables
-# ═══════════════════════════════════════════════════════════════════════════════
 
 def write_latex_tables(summaries: list, results_dir: str):
     """Generate LaTeX-ready tables for the paper."""
@@ -503,9 +489,7 @@ def write_latex_tables(summaries: list, results_dir: str):
     print(f"  LaTeX -> {fpath}")
 
 
-# ═══════════════════════════════════════════════════════════════════════════════
 # Empirical q* Analysis
-# ═══════════════════════════════════════════════════════════════════════════════
 
 def build_accuracy_curves(summaries: list) -> dict:
     """Build empirical curves from the summary data."""
@@ -657,9 +641,7 @@ def run_q_star_verification(results_dir: str):
     print(f"  Verification complete. Raw data saved to {out_dir}")
 
 
-# ═══════════════════════════════════════════════════════════════════════════════
 # Main
-# ═══════════════════════════════════════════════════════════════════════════════
 
 def main():
     parser = argparse.ArgumentParser(

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 deepthought_sim.py — DeepThought Oracle Simulation Engine
-==========================================================
+
 Pure-Python reimplementation of DeepThought's reputation-weighted voting
 truth-discovery algorithm for comparison against CLLM-SenteTruth.
 
@@ -38,9 +38,7 @@ except ImportError:
     def tqdm(iterable, **kwargs):
         return iterable
 
-# ═══════════════════════════════════════════════════════════════════════════════
 # Data Structures
-# ═══════════════════════════════════════════════════════════════════════════════
 
 @dataclass
 class Voter:
@@ -75,9 +73,7 @@ class PropositionResult:
     corrupted: bool             # True if outcome != ground_truth
 
 
-# ═══════════════════════════════════════════════════════════════════════════════
 # Core Algorithm
-# ═══════════════════════════════════════════════════════════════════════════════
 
 def vote_weight(stake: float, reputation: int, alpha: float) -> float:
     """
@@ -182,9 +178,7 @@ def simulate_proposition(
     )
 
 
-# ═══════════════════════════════════════════════════════════════════════════════
 # Experiment Runner
-# ═══════════════════════════════════════════════════════════════════════════════
 
 def run_single_experiment(
     n_propositions: int,
@@ -416,9 +410,7 @@ def run_all_experiments(args) -> dict:
     return summary
 
 
-# ═══════════════════════════════════════════════════════════════════════════════
 # CLI
-# ═══════════════════════════════════════════════════════════════════════════════
 
 def parse_args():
     parser = argparse.ArgumentParser(

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 convert_questions_yesno.py — Dataset Converter for DeepThought Experiments
-==========================================================================
+
 Converts the MIX and PRO datasets from open-ended / multiple-choice question
 format into TRUE/FALSE proposition format suitable for DeepThought's binary
 voting system.
@@ -28,9 +28,7 @@ OUTPUT_DIR = os.path.join(SCRIPT_DIR, "datasets")
 OUTPUT_MIX = os.path.join(OUTPUT_DIR, "q_100_MIX_yesno.json")
 OUTPUT_PRO = os.path.join(OUTPUT_DIR, "q_60_PRO_yesno.json")
 
-# =============================================================================
 # MIX Dataset — 100 questions → 100 TRUE propositions
-# =============================================================================
 # Each question is converted to a factually correct assertion.
 # Ground truth is always TRUE. Categories mirror the original dataset structure.
 
@@ -156,9 +154,7 @@ MIX_PROPOSITIONS = [
     ("Programming is the process of creating a set of instructions that tell a computer how to perform a task, using programming languages.", "technology"),
 ]
 
-# =============================================================================
 # PRO Dataset — 60 questions → 60 TRUE propositions
-# =============================================================================
 # Each multiple-choice physics question is converted to an assertion about
 # the correct answer. Format: compact assertion about the correct option.
 # Education levels: junior_high (Q1-20), high_school (Q21-40), university (Q41-60)
