@@ -1,0 +1,25 @@
+# Python dependencies for the CLLM-SenteTruth replication study.
+# Install with: pip install -r requirements.txt
+
+# LLM API clients (required for Step 1 — response generation)
+openai>=1.0.0
+google-genai>=1.0.0
+
+# BERT embeddings and credibility computation (Steps 3–4)
+torch>=2.0.0
+transformers>=4.30.0
+scikit-learn>=1.3.0
+numpy>=1.24.0
+
+# Excel report generation and analysis (Step 5 + analysis scripts)
+openpyxl>=3.1.0
+pandas>=2.0.0
+
+# Statistical analysis (FCD confidence intervals, Astraea q* solver)
+scipy>=1.10.0
+
+# DeepThought comparison charts (optional)
+matplotlib>=3.7.0
+
+# Progress bars (optional)
+tqdm>=4.65.0
