@@ -16,26 +16,10 @@ import os
 import concurrent.futures
 
 # ======== CONFIGURATION — LLM SETUP ====================
-from openai import OpenAI
-client = OpenAI(
-    api_key="sk-APIKEY",
-)
-ACTIVE_PROVIDER = "openai"
-
-# from google import genai
-# from google.genai import types
-# client = genai.Client(
-#     api_key="sk-APIKEY",
-# )
-# ACTIVE_PROVIDER = "gemini"
-
-# from openai import OpenAI
-# client = OpenAI(
-#     api_key="sk-APIKEY",
-#     base_url="https://api.deepseek.com",
-# )
-# ACTIVE_PROVIDER = "deepseek"
-# ACTIVE_MODEL = "deepseek-chat"
+ACTIVE_PROVIDER = "openai"       # "openai" | "gemini" | "deepseek"
+ACTIVE_MODEL    = "gpt-4o-mini"   # "gpt-4o-mini" | "gemini-2.5-flash-lite" | "deepseek-chat" | "deepseek-reasoner"
+API_KEY         = "sk-APIKEY"
+client          = None
 # ======================================================
 
 # ======== CONFIGURATION — CHANGE THESE PER RUN ========
@@ -62,20 +46,14 @@ import os as _tui_os
 if _tui_os.environ.get("CLLM_PATH"):
     _tui_provider = _tui_os.environ.get("CLLM_PROVIDER", "")
     _tui_key      = _tui_os.environ.get("CLLM_API_KEY", "")
-    if _tui_provider and _tui_key:
-        if _tui_provider == "openai":
-            from openai import OpenAI as _OAI
-            client = _OAI(api_key=_tui_key)
-            ACTIVE_PROVIDER = "openai"
-        elif _tui_provider == "gemini":
-            from google import genai as _genai
-            client = _genai.Client(api_key=_tui_key)
-            ACTIVE_PROVIDER = "gemini"
-        elif _tui_provider == "deepseek":
-            from openai import OpenAI as _OAI
-            client = _OAI(api_key=_tui_key, base_url="https://api.deepseek.com")
-            ACTIVE_PROVIDER = "deepseek"
-            ACTIVE_MODEL    = _tui_os.environ.get("CLLM_MODEL", "deepseek-chat")
+    _tui_model    = _tui_os.environ.get("CLLM_MODEL", "")
+    if _tui_provider:
+        ACTIVE_PROVIDER = _tui_provider
+    if _tui_key:
+        API_KEY = _tui_key
+    if _tui_model:
+        ACTIVE_MODEL = _tui_model
+
     number               = _tui_os.environ.get("CLLM_NUMBER",     number)
     dataset              = _tui_os.environ.get("CLLM_DATASET",    dataset)
     config               = _tui_os.environ.get("CLLM_CONFIG",     config)
@@ -89,6 +67,19 @@ if _tui_os.environ.get("CLLM_PATH"):
         model_seed = int(_s) if _s != "None" else None
 del _tui_os
 # ── end TUI override ────────────────────────────────────────────────────────
+
+# ── Initialize client based on active provider ──────────────────────────────
+if client is None:
+    if ACTIVE_PROVIDER == "openai":
+        from openai import OpenAI
+        client = OpenAI(api_key=API_KEY)
+    elif ACTIVE_PROVIDER == "gemini":
+        from google import genai
+        client = genai.Client(api_key=API_KEY)
+    elif ACTIVE_PROVIDER == "deepseek":
+        from openai import OpenAI
+        client = OpenAI(api_key=API_KEY, base_url="https://api.deepseek.com")
+
 
 # Build paths
 name = "q_" + number

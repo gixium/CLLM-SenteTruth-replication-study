@@ -31,6 +31,13 @@ try:
 except Exception:
     pass
 
+# Patch Input bindings to support Shift+Insert as well as Ctrl+V
+from textual.widgets import Input
+Input.BINDINGS = list(Input.BINDINGS) + [
+    Binding("shift+insert", "paste", "Paste", show=False),
+]
+
+from tui.clipboard import get_system_clipboard, set_system_clipboard
 from tui.config import DEFAULT_OUTPUT_ROOT
 from tui.screens.welcome      import WelcomeScreen
 from tui.screens.model_select import ModelSelectScreen
@@ -206,3 +213,20 @@ class TUILauncherApp(App):
 
     def action_quit(self) -> None:
         self.exit()
+
+    # ── Clipboard Integration ─────────────────────────────────────────────────
+
+    @property
+    def clipboard(self) -> str:
+        """Read from the OS system clipboard, falling back to in-app clipboard."""
+        sys_clip = get_system_clipboard()
+        if sys_clip:
+            return sys_clip
+        return getattr(self, "_clipboard", "")
+
+    @clipboard.setter
+    def clipboard(self, value: str) -> None:
+        """Write to in-app clipboard and OS system clipboard."""
+        self._clipboard = value
+        set_system_clipboard(value)
+
