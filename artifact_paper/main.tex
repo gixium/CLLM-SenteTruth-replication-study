@@ -1,0 +1,77 @@
+\documentclass[runningheads]{llncs}
+
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage[inline]{enumitem}
+\usepackage{listings}
+%\usepackage[subtle]{savetrees}
+\usepackage{xcolor}
+\usepackage{microtype}
+\usepackage{hyphenat}
+\ttfamily\hyphenchar\font=45\relax\normalfont
+
+% per overview
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning}
+
+% Code listing style for shell commands and file paths
+\lstdefinestyle{shell}{
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  frame=single,
+  backgroundcolor=\color{gray!8},
+  xleftmargin=3pt,
+  xrightmargin=3pt,
+  aboveskip=6pt,
+  belowskip=4pt,
+}
+
+\renewcommand{\c}[1]{\textbf{\textcolor{red}{#1}}}
+
+\begin{document}
+\emergencystretch=2em
+\tolerance=1000
+
+\title{Artifact for `Assessing the Robustness of LLM-Based Oracles for Blockchain-Based Services'}
+\titlerunning{Artifact: Robustness of LLM-Based Blockchain Oracles}
+
+\author{Anonymous Authors}
+
+\maketitle
+
+\begin{abstract}
+This paper presents the artifact accompanying the study \emph{``Assessing the Robustness of LLM-Based Oracles for Blockchain-Based Services''}, accepted at ICSOC~2026. The artifact contains the complete experimental pipeline, benchmark question datasets, pre-computed simulation traces across 64~configurations (covering four LLM families, four decoding temperatures, two node splits, and two datasets), baseline implementations (Astraea and DeepThought), and statistical analysis scripts for Honest Selection Rate, Final Credibility Delta, and Sustained Credibility Dominance. An interactive Terminal User Interface (TUI) launcher is provided to facilitate artifact evaluation, supporting local verification of existing results without API credentials as well as full end-to-end replication.
+\end{abstract}
+
+\keywords{Blockchain Oracles \and Large Language Models \and Collusion Attacks \and Reputation Systems \and Replication Package.}
+
+\section{Introduction}
+\label{sec:introduction}
+\input{sections/introduction}
+
+\section{Repository Structure and Getting Started}
+\label{sec:structure}
+\input{sections/structure}
+
+\section{Step-by-Step Reproduction Guide}
+\label{sec:pipeline}
+\input{sections/pipeline}
+
+\section{Analysis Scripts and Baseline Reproduction}
+\label{sec:analysis}
+\input{sections/analysis}
+
+\section{Data Description and Provenance}
+\label{sec:data}
+\input{sections/data}
+
+\section{Requirements, Limitations, and License}
+\label{sec:limitations}
+\input{sections/limitations}
+
+\bibliographystyle{splncs04}
+\bibliography{references}
+
+\end{document}

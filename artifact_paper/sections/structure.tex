@@ -1,0 +1,15 @@
+The repository is organized as follows. The root directory contains the interactive replication launcher (\texttt{tui\_launcher.py} and accompanying \texttt{tui/} package), the five Python scripts that implement the experimental pipeline (Section~\ref{sec:pipeline}), plus dependency and license files. The \texttt{dataset-questions\_translated/} directory holds the two benchmark datasets in JSON format: \texttt{q\_100\_MIX.json} (100~open-ended questions across ten domains) and \texttt{q\_60\_PRO.json} (60~multiple-choice physics questions at three educational levels). Both were translated from the original Chinese datasets used in the C-LLM evaluation~\cite{xian2024cllm}; originals are in \texttt{utility/BASE/}.
+
+Pre-computed results are organized under \texttt{simulations~60-40/} and \texttt{simulations~70-30/}, one directory per node split. Each subdirectory follows the naming convention \texttt{$\langle$decoding$\rangle$\_run\_$\langle$dataset$\rangle$\_$\langle$model$\rangle$/} and contains: the question file (\texttt{q\_*.json}), the collected LLM responses (\texttt{q\_*\_answers.json}), the single-run credibility log (\texttt{node\_weights\_log\_run\_*.txt}) and a \texttt{shuffle/} subdirectory with 20 or 30 shuffled answer files and corresponding credibility logs. The \texttt{results/} directory contains the aggregated Excel workbooks and the analysis scripts for Final Credibility Delta (\texttt{compute\_fcd\_ci.py}) and Sustained Credibility Dominance (\texttt{compute\_scd.py}). Baseline comparison code resides in \texttt{astraea-comparison/} and \texttt{deepthought-comparison/}.
+
+\subsection{Installation}
+\label{sec:installation}
+
+The artifact requires Python~3.9 or later. Installation proceeds via a standard virtual environment:
+
+\begin{lstlisting}[style=shell]
+python3 -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+\end{lstlisting}
+
+\noindent LLM API keys (OpenAI, Google GenAI, DeepSeek) are required \emph{only} for Step~1 of the pipeline. All subsequent steps, analysis scripts and baseline comparisons run entirely locally.

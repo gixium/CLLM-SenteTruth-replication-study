@@ -1,20 +1,25 @@
+"""
+q-star.py
+Computes the honest reporter competence q* required by the ASTRAEA baseline
+to match C-LLM's empirical accuracy under each configuration (RQ3).
+"""
 from scipy.stats import binom
 from scipy.optimize import brentq
 import statistics
 
-# Parametri del sistema
+# System parameters
 N = 10
 THRESHOLD = 6
 Q_MIN_RATIONAL = 0.50
 Q_MIN_PAPER = 0.80
 
 def astraea_error(q, k):
-    """Calcola P(decisione corrotta) usando l'Eq. 5 originale di ASTRAEA."""
+    """Computes P(corrupted decision) using original ASTRAEA Eq. 5."""
     p_wrong = (1 - q) + (k / N) * q
     return 1 - binom.cdf(THRESHOLD - 1, N, p_wrong)
 
 def find_q_star(target_error, k):
-    """Trova q in [0,1] t.c. astraea_error(q, k) = target_error."""
+    """Finds q in [0,1] such that astraea_error(q, k) = target_error."""
     if target_error <= 1e-9:
         return 1.0 if astraea_error(1.0, k) < 1e-9 else None
 
@@ -28,7 +33,7 @@ def find_q_star(target_error, k):
 
     return brentq(lambda q: astraea_error(q, k) - target_error, 0.0, 1.0, xtol=1e-8)
 
-# Dataset: (modello, dataset, split, k, C1%, C2%, C3%, C4%)
+# Dataset: (model, dataset, split, k, C1%, C2%, C3%, C4%)
 TABLE = [
     ("GPT-4o-mini", "MIX", "60/40", 4, 100.0, 67.0,  1.0, 99.0),
     ("GPT-4o-mini", "PRO", "60/40", 4, 100.0,  3.3,  1.7, 100.0),
@@ -58,56 +63,55 @@ for model, ds, split, k, *accs in TABLE:
         vulnerable = acc < 95.0
         all_results.append((split, model, ds, cfg, k, acc, q_star, vulnerable))
 
-print(f"Modello Eq.5 | N={N} THRESHOLD={THRESHOLD}")
+print(f"Model Eq. 5 | N={N} THRESHOLD={THRESHOLD}")
 print("-" * 75)
-print(f"{'Split':7} {'Modello':13} {'Ds':4} {'Cfg':4} {'Acc%':>6} {'q*':>7}  Note")
+print(f"{'Split':7} {'Model':13} {'Ds':4} {'Cfg':4} {'Acc%':>6} {'q*':>7}  Note")
 print("-" * 75)
 
 for split, model, ds, cfg, k, acc, q_star, vuln in all_results:
     marker = "[V]" if vuln else "   "
     
     if q_star is None:
-        note = "C-LLM irraggiungibile"
+        note = "C-LLM unreachable"
         q_str = "N/A"
     elif q_star >= 1.0 - 1e-6:
-        note = "Robusto (q=1)"
+        note = "Robust (q=1)"
         q_str = "1.000"
     elif q_star <= Q_MIN_RATIONAL:
-        note = f"ASTRAEA vince (q* <= {Q_MIN_RATIONAL} = minimo razionale)"
+        note = f"ASTRAEA wins (q* <= {Q_MIN_RATIONAL} = rational minimum)"
         q_str = f"{q_star:.3f}"
     elif q_star <= Q_MIN_PAPER:
-        note = f"ASTRAEA vince (q* <= {Q_MIN_PAPER} = standard operativo)"
+        note = f"ASTRAEA wins (q* <= {Q_MIN_PAPER} = paper standard)"
         q_str = f"{q_star:.3f}"
     else:
-        note = f"ASTRAEA vince se q* >= {q_star:.3f}"
+        note = f"ASTRAEA wins if q* >= {q_star:.3f}"
         q_str = f"{q_star:.3f}"
 
     print(f"{split:7} {model:13} {ds:4} {cfg:4} {acc:>5.1f}% {marker} {q_str:>7}  {note}")
 
-# --- RIEPILOGO STATISTICO ---
+# --- STATISTICAL SUMMARY ---
 vulnerable = [r for r in all_results if r[-1]]
 robust = [r for r in all_results if not r[-1]]
 solvable = [r[6] for r in vulnerable if r[6] is not None]
 
-# Calcolo delle metriche omesse
 below_rational = [q for q in solvable if q <= Q_MIN_RATIONAL]
 below_paper = [q for q in solvable if q <= Q_MIN_PAPER]
 unreachable = len(vulnerable) - len(solvable)
 
 print("\n" + "=" * 75)
-print("RIEPILOGO STATISTICO")
+print("STATISTICAL SUMMARY")
 print("=" * 75)
-print(f"Configurazioni totali      : {len(all_results)}")
-print(f"  - Robuste (Acc >= 95%)   : {len(robust)}")
-print(f"  - Vulnerabili (Acc < 95%): {len(vulnerable)}")
+print(f"Total configurations       : {len(all_results)}")
+print(f"  - Robust (Acc >= 95%)    : {len(robust)}")
+print(f"  - Vulnerable (Acc < 95%) : {len(vulnerable)}")
 
-print("\nDettaglio Vulnerabili:")
-print(f"  - q* <= {Q_MIN_RATIONAL} (Min razionale) : {len(below_rational)}/{len(vulnerable)}")
-print(f"  - q* <= {Q_MIN_PAPER} (Min paper)     : {len(below_paper)}/{len(vulnerable)}")
+print("\nVulnerable configurations breakdown:")
+print(f"  - q* <= {Q_MIN_RATIONAL} (Rational min) : {len(below_rational)}/{len(vulnerable)}")
+print(f"  - q* <= {Q_MIN_PAPER} (Paper standard): {len(below_paper)}/{len(vulnerable)}")
 if unreachable > 0:
-    print(f"  - Irraggiungibili (N/A)  : {unreachable}/{len(vulnerable)}")
+    print(f"  - Unreachable (N/A)      : {unreachable}/{len(vulnerable)}")
 
 if solvable:
-    print(f"\nDistribuzione q* (n={len(solvable)}):")
+    print(f"\nDistribution of q* (n={len(solvable)}):")
     print(f"  min={min(solvable):.3f} | median={statistics.median(solvable):.3f} | "
           f"max={max(solvable):.3f} | mean={statistics.mean(solvable):.3f}")

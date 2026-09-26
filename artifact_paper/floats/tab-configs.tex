@@ -1,0 +1,18 @@
+\begin{table}[t]
+\centering
+\caption{Experimental configurations (64 total = 4 $\times$ 4 $\times$ 2 $\times$ 2).}
+\label{tab:configs}
+\footnotesize
+\begin{tabular}{llcl}
+\toprule
+\textbf{Dimension} & \quad\textbf{Values} & \textbf{Count} \\
+\midrule
+LLM family & \quad GPT-4o-mini, Gemini-2.5-flash-lite, & 4 \\
+           & \quad DeepSeek-v4-flash (chat, reasoner) & \\
+Decoding   & \quad $C_1$: $T{=}0$; $C_2$: $T{=}0.5$; & 4 \\
+           & \quad $C_3$: $T{=}1.0$; $C_4$: $T{=}1.0$, seed$=4321$ & \\
+Dataset    & \quad MIX (100\,Qs, 30 runs), PRO (60\,Qs, 20 runs) & 2 \\
+Node split & \quad 6/4 (60-40), 7/3 (70-30), $N{=}10$ & 2 \\
+\bottomrule
+\end{tabular}
+\end{table}

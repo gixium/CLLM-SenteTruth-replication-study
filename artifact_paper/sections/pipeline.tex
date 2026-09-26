@@ -1,0 +1,53 @@
+\subsection{Interactive Replication Launcher (TUI)}
+\label{sec:tui}
+
+To eliminate manual script configuration and streamline verification for artifact reviewers, the repository includes an interactive Terminal User Interface (TUI) launcher:
+
+\begin{lstlisting}[style=shell]
+python3 tui_launcher.py
+\end{lstlisting}
+
+\noindent The launcher provides two operational workflows:
+\begin{itemize}
+    \item \textbf{Verify Existing Results (Recommended for Artifact Evaluation):} The user selects any of the evaluated models, datasets, splits, and decoding configurations. The tool copies the corresponding pre-computed raw answer file into an isolated workspace (\path{replication/}, git-ignored) and runs Steps~2--5 locally. This validates the pipeline without requiring API keys or external network requests.
+    \item \textbf{Full Replication:} The user interactively selects the model, dataset, split, and decoding configuration, inputs their API key, and executes Steps~1--5 end-to-end.
+\end{itemize}
+
+\subsection{Manual Step-by-Step Execution}
+\label{sec:manual-pipeline}
+
+Alternatively, reviewers can execute each step manually via the CLI as described below. Pre-computed outputs for all 64 configurations are included in the repository, so reviewers may skip Step~1 and start from any subsequent step.
+
+\smallskip\noindent\textbf{Step 1: LLM Response Generation (requires API keys).} The script \texttt{generate\_answers.py} queries the designated LLM, which can be configured along with its API key, to generate honest responses from $N$~honest nodes and two additional example responses. It then constructs a malicious prompt (Figure~2 in the original paper) that instructs the LLM to produce a factually incorrect but stylistically matched answer, which is replicated across all malicious nodes to simulate perfect collusion. The user configures the LLM provider and API key (lines~6--27), experiment parameters (lines~30--47) and runs:
+
+\begin{lstlisting}[style=shell]
+python3 generate_answers.py
+\end{lstlisting}
+
+\noindent\textbf{Output}: \texttt{q\_*\_answers.json}, a JSON array where each entry contains a question and 10 answers (first $N$ honest, last $10{-}N$ colluded malicious). The script supports crash-safe incremental saving and automatic resume from partial runs.
+
+\smallskip\noindent\textbf{Step 2: Question Order Shuffling.} The script \texttt{shuffle.py} generates randomized permutations of the question order (30 for MIX, 20 for PRO) to account for sequential credibility-update effects. Configuration is set in lines~11--14.
+
+\begin{lstlisting}[style=shell]
+python3 shuffle.py
+\end{lstlisting}
+
+\smallskip\noindent\textbf{Step 3: Single-Run Credibility Computation.} The script \texttt{calc\_cred.py} implements the C-LLM aggregation mechanism. For each question, it encodes the 10~node responses into \texttt{bert\mbox{-}base\mbox{-}uncased} embeddings (mean pooling over the last hidden state), computes pairwise cosine similarity and updates node credibility weights following the C-LLM procedure. It also persists the computed similarity matrix (\texttt{similarity\_cache.pkl}) to accelerate multi-run permutations. Configuration is set in lines~73--75.
+
+\begin{lstlisting}[style=shell]
+python3 calc_cred.py
+\end{lstlisting}
+
+\noindent\textbf{Output}: \texttt{node\_weights\_log\_run\_*.txt}, one line per question, 10~space-separated weight values. Columns~1--$N$ correspond to honest nodes; columns~$N{+}1$--10 to malicious nodes. The script defaults to CPU for numerical reproducibility (${\sim}$15--30\,s on modern CPUs).
+
+\smallskip\noindent\textbf{Step 4: Multi-Run Credibility Computation.} The script \texttt{calc\_cred\_shuffle.py} executes credibility updates across all shuffled orderings. By leveraging the cached similarity matrix computed in Step~3, it bypasses redundant neural embeddings while strictly recomputing credibility dynamics for each permutation ($<$2\,s total).
+
+\begin{lstlisting}[style=shell]
+python3 calc_cred_shuffle.py
+\end{lstlisting}
+
+\smallskip\noindent\textbf{Step 5: Excel Report Generation.} The script \texttt{generate\_excel.py} compiles weight logs into Excel workbooks with single-run and shuffled-run sheets, computing the per-run Honest Selection Rate (HSR), credibility-delta sequences, and aggregate statistics (minimum, maximum, and mean). Output workbooks produced by the replication pipeline are saved as \texttt{$\langle$decoding$\rangle$\_Research-project\_$\langle$model$\rangle$\_replication.xlsx} in \path{replication/results/}, allowing concurrent side-by-side inspection with baseline workbooks.
+
+\begin{lstlisting}[style=shell]
+python3 generate_excel.py
+\end{lstlisting}

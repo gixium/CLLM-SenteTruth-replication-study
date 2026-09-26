@@ -1,0 +1,113 @@
+"""tui/screens/api_key.py — API key entry screen (Full Replication mode only)."""
+from __future__ import annotations
+
+from textual.app import ComposeResult
+from textual.screen import Screen
+from textual.widgets import Button, Footer, Header, Input, Label, Static
+from textual.containers import Center, Horizontal, Vertical
+
+from tui.config import MODELS
+
+
+_PROVIDER_LINKS = {
+    "openai":   "https://platform.openai.com/api-keys",
+    "gemini":   "https://aistudio.google.com/app/apikey",
+    "deepseek": "https://platform.deepseek.com/api_keys",
+}
+
+_PROVIDER_NAMES = {
+    "openai":   "OpenAI",
+    "gemini":   "Google GenAI",
+    "deepseek": "DeepSeek",
+}
+
+
+class ApiKeyScreen(Screen):
+    """Collect and validate the LLM API key for Step 1."""
+
+    CSS = """
+    ApiKeyScreen {
+        align: center middle;
+        overflow-y: auto;
+        background: #000000;
+        color: #ffffff;
+    }
+    #key-box {
+        width: 70;
+        height: auto;
+        padding: 1 3;
+        border: solid #ffffff;
+        background: #000000;
+    }
+    Input {
+        margin: 1 0;
+        background: #000000;
+        color: #ffffff;
+        border: solid #ffffff;
+    }
+    #note {
+        color: #888888;
+        margin-top: 1;
+    }
+    #btn-row {
+        margin-top: 1;
+        height: auto;
+        align: center middle;
+    }
+    Button {
+        margin: 0 2;
+        min-width: 16;
+    }
+    """
+
+    def compose(self) -> ComposeResult:
+        model_key = getattr(self.app, "selected_model", "")
+        provider  = MODELS.get(model_key, {}).get("provider", "openai")
+        pname     = _PROVIDER_NAMES.get(provider, provider)
+        plink     = _PROVIDER_LINKS.get(provider, "")
+
+        yield Header(show_clock=False)
+        with Center():
+            with Vertical(id="key-box"):
+                yield Static(
+                    "[bold]Step 3 of 4: API Key[/]\n\n"
+                    f"Enter your [bold]{pname}[/] API key.\n"
+                    f"[dim]Reference: {plink}[/]\n\n"
+                    "[dim]Note: Step 1 calls the LLM API for each question in the dataset.\n"
+                    "This requires network connectivity and API quota.[/]\n"
+                )
+                yield Input(
+                    placeholder="Paste your API key here...",
+                    password=True,
+                    id="api-key-input",
+                )
+                yield Static(
+                    "[dim]The key is kept only in memory for this run and never stored to disk.[/]",
+                    id="note",
+                )
+                with Horizontal(id="btn-row"):
+                    yield Button("Back", id="btn-back")
+                    yield Button("Next", id="btn-next")
+        yield Footer()
+
+
+
+    def on_mount(self) -> None:
+        # Pre-fill if already entered in a previous visit
+        stored = getattr(self.app, "api_key", "")
+        if stored:
+            self.query_one("#api-key-input", Input).value = stored
+
+    def on_button_pressed(self, event: Button.Pressed) -> None:
+        if event.button.id == "btn-back":
+            self.app.pop_screen()  # type: ignore[attr-defined]
+        elif event.button.id == "btn-next":
+            self._save_and_continue()
+
+    def _save_and_continue(self) -> None:
+        key = self.query_one("#api-key-input", Input).value.strip()
+        if not key:
+            self.notify("Please enter your API key.", severity="warning")
+            return
+        self.app.api_key = key          # type: ignore[attr-defined]
+        self.app.push_screen("confirm") # type: ignore[attr-defined]
