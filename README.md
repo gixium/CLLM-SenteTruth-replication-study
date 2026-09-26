@@ -24,11 +24,14 @@ The repository includes:
 ├── LICENSE                            # Usage License
 ├── requirements.txt                   # Python dependencies
 │
-├── gpt4o_mini_API.py                  # Step 1: LLM response generation (honest + malicious)
-├── shuffle_gpt4omini.py               # Step 2: Question order shuffling
-├── calc_cred_gpt4omini.py             # Step 3: Single-run credibility computation (BERT)
-├── calc_cred_shuffle_gpt4omini.py     # Step 4: Multi-run credibility computation
-├── generate_excel.py                  # Step 5: Excel report generation
+├── tui_launcher.py                  # Interactive TUI launcher (ICSOC artifact replication)
+├── tui/                             # TUI application screens and asynchronous runners
+│
+├── generate_answers.py            # Step 1: LLM response generation (honest + malicious)
+├── shuffle.py                     # Step 2: Question order shuffling
+├── calc_cred.py                   # Step 3: Single-run credibility computation (BERT)
+├── calc_cred_shuffle.py           # Step 4: Multi-run credibility computation
+├── generate_excel.py              # Step 5: Excel report generation
 │
 ├── dataset-questions_translated/      # Benchmark datasets (English)
 │   ├── q_100_MIX.json                 #   100 open-ended questions, 10 domains
@@ -107,21 +110,38 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-## Experimental Pipeline
+## Quick Start: Interactive Replication Launcher (TUI)
 
-The pipeline consists of five sequential steps. Each step reads the output of the previous one.
+The simplest and recommended way to replicate or verify the experiments is via the interactive Terminal User Interface (TUI):
+
+```bash
+python tui_launcher.py
+```
+
+The launcher guides the user step-by-step through configuration and execution:
+- **Verify Existing Results** (*Artifact Evaluation*): Copies existing simulation answers to `replication/` (git-ignored) and runs Steps 2–5 entirely locally. No API keys or external network connections are needed.
+- **Full Replication**: Prompts for model provider, dataset, node split, decoding configuration, and API key, then runs Steps 1–5 end-to-end.
+- **Analysis & Baselines**: Directly launch FCD (95% CI), SCD analysis, Astraea $q^*$ analytical model, or DeepThought simulation from the post-pipeline screen.
+
+All TUI runs write their logs, shuffled answer files, credibility weights, and final Excel reports to `replication/`, keeping the repository clean.
+
+---
+
+## Experimental Pipeline (Manual CLI)
+
+Reviewers can also run each step manually via the command line. The pipeline consists of five sequential steps:
 
 ### Step 1 — LLM Response Generation (requires API keys)
 
 Generates honest and malicious LLM responses for a given configuration.
 
-1. Open `gpt4o_mini_API.py` and configure:
+1. Open `generate_answers.py` and configure:
    - **LLM provider** (lines 6–27): uncomment the desired provider block and set your API key in `api_key="sk-APIKEY"`.
    - **Experiment parameters** (lines 30–47): set `number`, `dataset`, `config`, `number_of_good_nodes`, `model_temperature`, and `model_seed`.
 
 2. Run:
    ```bash
-   python3 gpt4o_mini_API.py
+   python3 generate_answers.py
    ```
 
 3. **Output**: `simulations <config>/run_<dataset>_<model>/q_<number>_answers.json` — a JSON array where each entry contains a question and 10 answers (first N honest, last 10−N colluded malicious).
@@ -132,11 +152,11 @@ The script includes crash-safe incremental saving and automatic resume.
 
 Creates randomized permutations of the question order to account for sequential credibility-update effects.
 
-1. Configure `shuffle_gpt4omini.py` (lines 11–14): set `number`, `dataset`, `config`, `num_shuffles` (30 for MIX, 20 for PRO).
+1. Configure `shuffle.py` (lines 11–14): set `number`, `dataset`, `config`, `num_shuffles` (30 for MIX, 20 for PRO).
 
 2. Run:
    ```bash
-   python3 shuffle_gpt4omini.py
+   python3 shuffle.py
    ```
 
 3. **Output**: `simulations <config>/run_<dataset>_<model>/shuffle/q_<number>_answers_shuffle_<i>.json`
@@ -145,33 +165,33 @@ Creates randomized permutations of the question order to account for sequential 
 
 Computes C-LLM credibility updates using BERT embeddings and cosine similarity.
 
-1. Configure `calc_cred_gpt4omini.py` (lines 73–75): set `number`, `dataset`, `config`.
+1. Configure `calc_cred.py` (lines 73–75): set `number`, `dataset`, `config`.
 
 2. Run:
    ```bash
-   python3 calc_cred_gpt4omini.py
+   python3 calc_cred.py
    ```
 
 3. **Output**: `node_weights_log_run_<number>.txt` — one line per question, 10 space-separated weight values (one per node).
 
-**Estimated time**: ~2–5 minutes per run on CPU.
+**Estimated time**: ~15–30 seconds per run on CPU (batched inference). Automatically saves `similarity_cache.pkl`.
 
-> The script defaults to CPU computation for numerical reproducibility. To use Apple Silicon GPU, set `export BERT_DEVICE=mps` before running. Note that MPS and CPU may produce slightly different floating-point results.
+> The script defaults to CPU computation for numerical reproducibility. To use Apple Silicon GPU, set `export BERT_DEVICE=mps` before running.
 
 ### Step 4 — Multi-Run Credibility Computation
 
-Runs Step 3 across all shuffled question orderings.
+Runs Step 3 across all shuffled question orderings using cached similarity matrices.
 
-1. Configure `calc_cred_shuffle_gpt4omini.py` (lines 84–88): set `number`, `dataset`, `config`, `num_shuffles`.
+1. Configure `calc_cred_shuffle.py` (lines 84–88): set `number`, `dataset`, `config`, `num_shuffles`.
 
 2. Run:
    ```bash
-   python3 calc_cred_shuffle_gpt4omini.py
+   python3 calc_cred_shuffle.py
    ```
 
 3. **Output**: `shuffle/node_weights_log_run_<number>_shuffle_<i>.txt`
 
-**Estimated time**: ~30–60 minutes per configuration (30 shuffles × ~2 min each).
+**Estimated time**: <2 seconds (using cached similarity matrices).
 
 ### Step 5 — Excel Report Generation
 
@@ -181,7 +201,7 @@ Compiles weight logs into an Excel workbook with per-run system accuracy, credib
 python3 generate_excel.py
 ```
 
-**Output**: Excel workbook with single-run sheets, shuffle sheets (per-run accuracy), and a final summary sheet.
+**Output**: Excel workbook with single-run sheets, shuffle sheets (per-run accuracy), and a final summary sheet. Output files generated via the replication pipeline are saved as `<decoding>_Research-project_<model>_replication.xlsx` (in `replication/results/`), enabling concurrent side-by-side inspection with the reference baseline workbooks in Microsoft Excel.
 
 ## Analysis Scripts
 
@@ -295,4 +315,4 @@ TBA
 
 ## License
 
-This project is licensed under the TBD License — see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.

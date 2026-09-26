@@ -1,0 +1,21 @@
+\begin{table}[t]
+\centering
+\caption{Artifact contents overview.}
+\label{tab:contents}
+\footnotesize
+\begin{tabular}{lll}
+\toprule
+\textbf{Component} & \textbf{Type} & \textbf{Description} \\
+\midrule
+Experimental pipeline  & Code & 5-step Python pipeline for C-LLM evaluation \\
+Astraea comparison     & Code & Analytical $q^*$ solver (binomial CDF) \\
+DeepThought comparison & Code & Simulation engine (Python reimplementation) \\
+MIX dataset            & Data & 100 open-ended questions, 10 domains \\
+PRO dataset            & Data & 60 multiple-choice physics questions \\
+Raw LLM responses      & Data & Answers from 4 LLM families $\times$ 4 configs $\times$ 2 splits \\
+Credibility logs       & Data & Node weight evolution for every run and shuffle \\
+Analysis results       & Data & Excel workbooks with aggregate metrics \\
+README                 & Docs & Step-by-step reproduction guide \\
+\bottomrule
+\end{tabular}
+\end{table}

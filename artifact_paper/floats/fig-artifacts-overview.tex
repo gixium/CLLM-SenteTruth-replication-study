@@ -1,0 +1,74 @@
+\begin{figure}[t]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[
+  stage/.style={
+    draw=black!55,
+    fill=black!3,
+    rounded corners=1.2pt,
+    align=center,
+    minimum height=1.55cm,
+    inner xsep=2pt,
+    inner ysep=2.5pt,
+    font=\scriptsize
+  },
+  flow/.style={
+    -{Latex[length=1.6mm,width=1.1mm]},
+    draw=black!65,
+    line width=0.45pt
+  },
+  node distance=2mm
+]
+
+% Input datasets
+\node[stage, text width=1.7cm] (inputs) {
+  \textbf{Inputs}\\[-1pt]
+  {\ttfamily dataset}\\[-2pt]
+  {\ttfamily -questions}\\[-2pt]
+  {\ttfamily \_translated/}\\[-1pt]
+  MIX (100) $\mid$ PRO (60)
+};
+
+% Five-step pipeline
+\node[stage, text width=1.67cm, right=of inputs] (pipeline) {
+  \textbf{Pipeline}\\[-1pt]
+  root scripts\\[-1pt]
+  Steps 1--5\\[-1pt]
+  \emph{API: Step 1 only}
+};
+
+% Archived configuration outputs
+\node[stage, text width=2.5cm, right=of pipeline] (runs) {
+  \textbf{Archived runs}\\[-1pt]
+  {\ttfamily simulations 60-40/}\\[-1pt]
+  {\ttfamily simulations 70-30/}\\[-1pt]
+  responses $\cdot$ \texttt{shuffle/} $\cdot$ logs
+};
+
+% RQ1--RQ2 evidence
+\node[stage, text width=1.7cm, right=of runs] (results) {
+  \textbf{Evidence}\\[-1pt]
+  {\ttfamily results/}\\[-1pt]
+  HSR $\cdot$ FCD $\cdot$ SCD
+};
+
+% RQ3 branch
+\node[stage, text width=3.1cm, right=of results] (rqthree) {
+  \textbf{RQ3 calibration}\\[-1pt]
+  {\ttfamily astraea-comparison/}\\[-2pt]
+  $+$\\[-2pt]
+  {\ttfamily deepthought-comparison/}\\[-1pt]
+  $\longrightarrow$ $\hat q$
+};
+
+\draw[flow] (inputs) -- (pipeline);
+\draw[flow] (pipeline) -- (runs);
+\draw[flow] (runs) -- (results);
+\draw[flow] (results) -- (rqthree);
+
+\end{tikzpicture}%
+}
+\caption{Artifact organization and verification flow
+(only Step~1 requires LLM APIs).}
+\label{fig:artifact-overview}
+\end{figure}

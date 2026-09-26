@@ -23,3 +23,6 @@ matplotlib>=3.7.0
 
 # Progress bars (optional)
 tqdm>=4.65.0
+
+# ── TUI Launcher ──────────────────────────────────────────────────────────────
+textual>=0.60.0

@@ -566,28 +566,28 @@ def run_q_star_analysis(summaries: list, results_dir: str):
     with open(fpath, "w", encoding="utf-8") as f:
         f.write(f"DeepThought q* (empirical interpolation) | N=10\n")
         f.write("-" * 85 + "\n")
-        f.write(f"{'Split':7} {'Modello':13} {'Ds':4} {'Cfg':4} {'Acc%':>6} {'q*':>7}  Note\n")
+        f.write(f"{'Split':7} {'Model':13} {'Ds':4} {'Cfg':4} {'Acc%':>6} {'q*':>7}  Note\n")
         f.write("-" * 85 + "\n")
         
         for r in all_results:
             marker = "[V]" if r["vulnerable"] else "   "
             if not r["vulnerable"]:
-                note = "C-LLM irraggiungibile"
+                note = "C-LLM unreachable"
                 q_str = "N/A"
             elif r["q_star"] is None:
-                note = "DT irraggiungibile"
+                note = "DT unreachable"
                 q_str = "N/A"
             elif r["q_star"] <= 0.001:
-                note = "DT vince (q* ~ 0 = triviale)"
+                note = "DT wins (q* ~ 0 = trivial)"
                 q_str = "0.000"
             elif r["q_star"] <= Q_MIN_RATIONAL:
-                note = f"DT vince (q* <= {Q_MIN_RATIONAL} = minimo razionale)"
+                note = f"DT wins (q* <= {Q_MIN_RATIONAL} = rational minimum)"
                 q_str = f"{r['q_star']:.3f}"
             elif r["q_star"] <= Q_MIN_PAPER:
-                note = f"DT vince (q* <= {Q_MIN_PAPER} = standard operativo)"
+                note = f"DT wins (q* <= {Q_MIN_PAPER} = paper standard)"
                 q_str = f"{r['q_star']:.3f}"
             else:
-                note = f"DT vince se q* >= {r['q_star']:.3f}"
+                note = f"DT wins if q* >= {r['q_star']:.3f}"
                 q_str = f"{r['q_star']:.3f}"
                 
             f.write(f"{r['split']:7} {r['model']:13} {r['ds']:4} {r['cfg']:4} {r['acc']:>5.1f}% {marker} {q_str:>7}  {note}\n")

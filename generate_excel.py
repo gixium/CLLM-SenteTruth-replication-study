@@ -9,23 +9,43 @@ from openpyxl.utils import get_column_letter
 # ─── Configuration ───────────────────────────────────────────────────────────
 
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
-OUTPUT_FILE = os.path.join(PROJECT_DIR, "Research project GPT4o-mini.xlsx")
+
+# ── TUI-configurable path components (overridden by tui_launcher.py) ────────
+# Default values reproduce the original manual-run behaviour (gpt4omini, no prefix).
+MODEL_SUFFIX    = "gpt4omini"   # e.g. "gemini2.5flashlite", "deepseek-chat"
+DECODING_PREFIX = ""            # e.g. "temp-0_"  (includes trailing underscore)
+
+# Allow the TUI (and CI) to override via environment variables
+_tui_os = __import__("os")
+if _tui_os.environ.get("CLLM_MODEL_SUFFIX"):
+    MODEL_SUFFIX    = _tui_os.environ["CLLM_MODEL_SUFFIX"]
+if _tui_os.environ.get("CLLM_DECODING_PREFIX"):
+    DECODING_PREFIX = _tui_os.environ["CLLM_DECODING_PREFIX"]
+if _tui_os.environ.get("CLLM_PROJECT_DIR"):
+    PROJECT_DIR     = _tui_os.environ["CLLM_PROJECT_DIR"]
+del _tui_os
+# ── end TUI override ─────────────────────────────────────────────────────────
+
+OUTPUT_FILE = os.environ.get(
+    "CLLM_OUTPUT_FILE",
+    os.path.join(PROJECT_DIR, "Research project GPT4o-mini_replication.xlsx"),
+)
 
 # All 4 experiment configurations
 EXPERIMENTS = [
     {
-        "name": "gpt4omini_single_100",
-        "shuffle_name": "gpt4omini_shuffle_100",
+        "name": "60-40_MIX_single",
+        "shuffle_name": "60-40_MIX_shuffle",
         "dataset": "MIX",
         "config": "60-40",
         "number": 100,
         "good_nodes": 6,
         "num_shuffles": 30,
-        "suffix": "",  # no suffix for 60-40
+        "suffix": "",
     },
     {
-        "name": "gpt4omini_single_60",
-        "shuffle_name": "gpt4omini_shuffle_60",
+        "name": "60-40_PRO_single",
+        "shuffle_name": "60-40_PRO_shuffle",
         "dataset": "PRO",
         "config": "60-40",
         "number": 60,
@@ -34,18 +54,18 @@ EXPERIMENTS = [
         "suffix": "",
     },
     {
-        "name": "gpt4omini_single_100_2",
-        "shuffle_name": "gpt4omini_shuffle_100_2",
+        "name": "70-30_MIX_single",
+        "shuffle_name": "70-30_MIX_shuffle",
         "dataset": "MIX",
         "config": "70-30",
         "number": 100,
         "good_nodes": 7,
         "num_shuffles": 30,
-        "suffix": "_2",  # suffix for 70-30 (matching original Excel naming)
+        "suffix": "_2",
     },
     {
-        "name": "gpt4omini_single_60_2",
-        "shuffle_name": "gpt4omini_shuffle_60_2",
+        "name": "70-30_PRO_single",
+        "shuffle_name": "70-30_PRO_shuffle",
         "dataset": "PRO",
         "config": "70-30",
         "number": 60,
@@ -242,10 +262,10 @@ def build_shuffle_sheet(wb, sheet_name, shuffle_weights, good_nodes, total_quest
                 c.fill = BAD_FILL
         ws.cell(row=current_row, column=12, value="DELTA").font = HEADER_FONT
 
-        # Accuracy header (only in first block)
+        # Accuracy header (only in first block, columns 15 to 24 for shuffles 1-10)
         if shuffle_idx == 0:
             ws.cell(row=current_row, column=14, value="system accuracy per run").font = HEADER_FONT
-            for si in range(num_shuffles):
+            for si in range(min(10, num_shuffles)):
                 ws.cell(row=current_row, column=15 + si, value=si + 1).font = HEADER_FONT
 
         current_row += 1
@@ -259,12 +279,6 @@ def build_shuffle_sheet(wb, sheet_name, shuffle_weights, good_nodes, total_quest
         accuracy = compute_accuracy(weights_data, good_nodes)
         per_run_accuracies.append(accuracy)
 
-        # Write per-run accuracy in the FIRST BLOCK's initial row
-        # (matching the original Excel layout where all accuracies are in row 3)
-        if shuffle_idx == 0:
-            # We'll fill these in after collecting all accuracies
-            pass
-
         current_row += 1
 
         # --- Weight data ---
@@ -275,51 +289,26 @@ def build_shuffle_sheet(wb, sheet_name, shuffle_weights, good_nodes, total_quest
             ws.cell(row=current_row, column=12, value=round(delta, 6))
             current_row += 1
 
-    # --- Write per-run accuracies in columns O-X of row 3 ---
-    # In the original Excel, these are in rows 3 and 5 (alternating with shuffle indices)
-    # Row 3 = accuracies for shuffles 1-10
-    # Row 4 = shuffle indices 11-20
-    # Row 5 = accuracies for shuffles 11-20
-    # etc.
-    accuracy_start_row = 3  # Row 3 in the sheet
-    
-    # Write accuracies in a 2-row pattern:
-    # Row (accuracy_start_row): accuracies for batch 1 (shuffles 1-10)
-    # Row (accuracy_start_row+1): shuffle indices for batch 2 (11-20)
-    # Row (accuracy_start_row+2): accuracies for batch 2 (shuffles 11-20)
-    # etc.
-    
-    batch_size = 10  # 10 accuracies per row (columns O through X)
+    # --- Write per-run accuracies in columns O-X (15-24) ---
+    # Batches of 10:
+    # Batch 0 (1-10):  Row 2 = indices 1-10,  Row 3 = accuracies 1-10
+    # Batch 1 (11-20): Row 4 = indices 11-20, Row 5 = accuracies 11-20
+    # Batch 2 (21-30): Row 6 = indices 21-30, Row 7 = accuracies 21-30
+    batch_size = 10
     num_batches = (num_shuffles + batch_size - 1) // batch_size
-    
-    for batch_idx in range(num_batches):
-        row_offset = batch_idx * 2
-        start_s = batch_idx * batch_size
+    for b in range(num_batches):
+        idx_row = 2 + b * 2
+        val_row = idx_row + 1
+        start_s = b * batch_size
         end_s = min(start_s + batch_size, num_shuffles)
-        
         for si in range(start_s, end_s):
-            col = 15 + (si - start_s)  # Column O = 15
-            # Accuracy row
-            ws.cell(row=accuracy_start_row + row_offset, column=col,
-                    value=round(per_run_accuracies[si], 6))
-            # Index row (for batches after the first)
-            if batch_idx > 0 or si >= batch_size:
-                ws.cell(row=accuracy_start_row + row_offset - 1, column=col,
-                        value=si + 1)
-
-    # Handle the second row of shuffle indices for the first batch (11-20 etc.)
-    if num_shuffles > batch_size:
-        for batch_idx in range(1, num_batches):
-            start_s = batch_idx * batch_size
-            end_s = min(start_s + batch_size, num_shuffles)
-            row_offset = batch_idx * 2 - 1
-            for si in range(start_s, end_s):
-                col = 15 + (si - start_s)
-                ws.cell(row=accuracy_start_row + row_offset, column=col,
-                        value=si + 1).font = HEADER_FONT
+            col = 15 + (si - start_s)
+            if b > 0:
+                ws.cell(row=idx_row, column=col, value=si + 1).font = HEADER_FONT
+            ws.cell(row=val_row, column=col, value=round(per_run_accuracies[si], 6))
 
     # --- Aggregate accuracy stats (columns Z-AA) ---
-    z_col = 26  # Column Z
+    z_col = 26   # Column Z
     aa_col = 27  # Column AA
 
     ws.cell(row=1, column=z_col, value="accuracy").font = Font(bold=True, size=12)
@@ -328,9 +317,12 @@ def build_shuffle_sheet(wb, sheet_name, shuffle_weights, good_nodes, total_quest
     ws.cell(row=4, column=z_col, value="AVG").font = SUMMARY_FONT
 
     if per_run_accuracies:
-        ws.cell(row=2, column=aa_col, value=round(max(per_run_accuracies), 6))
-        ws.cell(row=3, column=aa_col, value=round(min(per_run_accuracies), 6))
-        ws.cell(row=4, column=aa_col, value=round(np.mean(per_run_accuracies), 6))
+        c_max = ws.cell(row=2, column=aa_col, value=round(max(per_run_accuracies), 6))
+        c_max.font = Font(bold=False)
+        c_min = ws.cell(row=3, column=aa_col, value=round(min(per_run_accuracies), 6))
+        c_min.font = Font(bold=False)
+        c_avg = ws.cell(row=4, column=aa_col, value=round(np.mean(per_run_accuracies), 6))
+        c_avg.font = Font(bold=False)
 
     # Column widths
     for col in range(1, 28):
@@ -370,9 +362,16 @@ def build_final_results_sheet(wb, results):
     ws.cell(row=3, column=5, value="PRO").font = HEADER_FONT
 
     # Row 4: model label
+    model_display_names = {
+        "gpt4omini":          "gpt-4o-mini",
+        "gemini2.5flashlite": "Gemini-2.5-flash-lite",
+        "deepseek-chat":      "DeepSeek-v4-flash (chat)",
+        "deepseek-reasoner":  "DeepSeek-v4-flash (reasoner)",
+    }
+    model_label = model_display_names.get(MODEL_SUFFIX, MODEL_SUFFIX)
     ws.cell(row=4, column=1, value="model").font = HEADER_FONT
     for col in range(2, 6):
-        ws.cell(row=4, column=col, value="gpt-4o-mini").font = HEADER_FONT
+        ws.cell(row=4, column=col, value=model_label).font = HEADER_FONT
 
     # Column mapping: B=MIX 60-40, C=PRO 60-40, D=MIX 70-30, E=PRO 70-30
     col_map = {
@@ -425,7 +424,7 @@ def build_final_results_sheet(wb, results):
 
     # Styling
     for col in range(1, 6):
-        ws.column_dimensions[get_column_letter(col)].width = 22
+        ws.column_dimensions[get_column_letter(col)].width = 26
 
     # Merge cells for config headers
     ws.merge_cells("B2:C2")
@@ -436,7 +435,7 @@ def build_final_results_sheet(wb, results):
 
 def main():
     print("=" * 60)
-    print("  Generating Excel report for GPT-4o mini experiment")
+    print(f"  Generating Excel report for {MODEL_SUFFIX}")
     print("=" * 60)
     print()
 
@@ -456,7 +455,8 @@ def main():
         single_name = exp["name"]
         shuffle_name = exp["shuffle_name"]
 
-        base_path = os.path.join(PROJECT_DIR, f"simulations {config}", f"run_{dataset}_gpt4omini")
+        base_path = os.path.join(PROJECT_DIR, f"simulations {config}",
+                                  f"{DECODING_PREFIX}run_{dataset}_{MODEL_SUFFIX}")
         single_file = os.path.join(base_path, f"node_weights_log_run_{number}.txt")
         shuffle_dir = os.path.join(base_path, "shuffle")
 
@@ -465,23 +465,23 @@ def main():
 
         # ─── Single run ───
         if os.path.exists(single_file):
-            print(f"  📊 {single_name}: Loading {single_file}")
+            print(f"  [DATA] {single_name}: Loading {single_file}")
             weights = load_weights(single_file)
             if len(weights) == number:
                 stats = build_single_sheet(wb, single_name, weights, good_nodes, number)
                 all_results[key]["single"] = stats
-                print(f"     ✅ {len(weights)} steps | accuracy={stats['accuracy']:.2%} | "
+                print(f"     [OK] {len(weights)} steps | accuracy={stats['accuracy']:.2%} | "
                       f"final_delta={stats['final_delta']:.4f}")
                 any_data = True
             else:
-                print(f"     ⚠️  Expected {number} steps, got {len(weights)}. "
+                print(f"     [WARNING] Expected {number} steps, got {len(weights)}. "
                       f"File may be incomplete or corrupted.")
                 if weights:
                     stats = build_single_sheet(wb, single_name, weights, good_nodes, number)
                     all_results[key]["single"] = stats
                     any_data = True
         else:
-            print(f"  ⏭️  {single_name}: No data yet ({single_file})")
+            print(f"  [SKIP] {single_name}: No data yet ({single_file})")
 
         # ─── Shuffled runs ───
         shuffle_files = sorted(
@@ -490,7 +490,7 @@ def main():
         )
 
         if shuffle_files:
-            print(f"  📊 {shuffle_name}: Loading {len(shuffle_files)} shuffle files")
+            print(f"  [INFO] {shuffle_name}: Loading {len(shuffle_files)} shuffle files")
             shuffle_weights = []
             for sf in shuffle_files:
                 w = load_weights(sf)
@@ -502,33 +502,35 @@ def main():
             all_results[key]["shuffle_accuracies"] = accuracies
 
             acc_arr = np.array(accuracies)
-            print(f"     ✅ {len(shuffle_files)} shuffles | "
+            print(f"     [OK] {len(shuffle_files)} shuffles | "
                   f"accuracy: max={acc_arr.max():.2%}, min={acc_arr.min():.2%}, "
                   f"avg={acc_arr.mean():.2%}")
             any_data = True
         else:
-            print(f"  ⏭️  {shuffle_name}: No shuffle data yet")
+            print(f"  [SKIP] {shuffle_name}: No shuffle data yet")
 
     # ─── Final results sheet ───
     if any_data:
         print()
-        print(f"  📋 Building final_results summary sheet...")
+        print(f"  [INFO] Building final_results summary sheet...")
         build_final_results_sheet(wb, all_results)
 
         # Save
         wb.save(OUTPUT_FILE)
         print()
-        print(f"  ✅ Excel report saved: {OUTPUT_FILE}")
+        print(f"  [OK] Excel report saved: {OUTPUT_FILE}")
         print()
+
     else:
         print()
-        print("  ⚠️  No experiment data found. Run the experiment first!")
+        print("  [WARNING] No experiment data found. Run the experiment first!")
         print("     Expected data in:")
         for exp in EXPERIMENTS:
             base = os.path.join(PROJECT_DIR, f"simulations {exp['config']}",
-                                f"run_{exp['dataset']}_gpt4omini")
+                                f"{DECODING_PREFIX}run_{exp['dataset']}_{MODEL_SUFFIX}")
             print(f"       {base}/node_weights_log_run_{exp['number']}.txt")
         sys.exit(1)
+
 
 
 if __name__ == "__main__":

@@ -224,3 +224,8 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Replication TUI test outputs
+local_test/
+replication/
+
